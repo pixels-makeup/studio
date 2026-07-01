@@ -52,12 +52,12 @@
           <span>Dior</span><span>NARS</span><span>Charlotte Tilbury</span><span>Armani</span><span>Hourglass</span><span>Make Up For Ever</span>
         </div>
       </div>
-    </section>
 
-    <section class="page" id="portfolio">
-      <h1>Portfolio</h1>
-      <div id="portfolioCategories"></div>
-      <div id="portfolioGallery"></div>
+      <div class="card">
+        <h2>Portfolio</h2>
+        <div id="portfolioCategories"></div>
+        <div id="portfolioGallery"></div>
+      </div>
     </section>
 
     <section class="page" id="pricing">
@@ -69,16 +69,8 @@
       <h1>Booking</h1>
       <p class="sub">Choose an available appointment time.</p>
       <div id="bookingSlots"></div>
-    </section>
-
-    <section class="page" id="faq">
-      <h1>FAQ</h1>
-      <div id="faqList"></div>
-    </section>
-
-    <section class="page" id="contact">
-      <h1>Contact</h1>
       <div class="card">
+        <h2>Contact</h2>
         <p>Email: yourname@email.com</p>
         <p>Location: Los Angeles, CA</p>
         <p>Instagram: @yourmakeupartist</p>
@@ -96,24 +88,19 @@
         <p><strong>Late Arrival:</strong> Late arrivals may shorten the service time.</p>
         <p><strong>Reschedule:</strong> Rescheduling depends on availability.</p>
       </div>
-    </section>
-
-    <section class="page" id="blog">
-      <h1>Beauty Tips</h1>
-      <div id="blogList"></div>
+      <div class="card">
+        <h2>FAQ</h2>
+        <div id="faqList"></div>
+      </div>
     </section>
 
   </main>
 
   <nav class="bottom-nav">
     <button onclick="showPage('home')">🏠<span>Home</span></button>
-    <button onclick="showPage('portfolio')">📷<span>Work</span></button>
     <button onclick="showPage('pricing')">💄<span>Price</span></button>
     <button onclick="showPage('booking')">📅<span>Book</span></button>
-    <button onclick="showPage('faq')">❔<span>FAQ</span></button>
-    <button onclick="showPage('contact')">💬<span>Contact</span></button>
     <button onclick="showPage('policies')">📌<span>Policy</span></button>
-    <button onclick="showPage('blog')">📝<span>Blog</span></button>
   </nav>
 
   <script type="module" src="app.js"></script>

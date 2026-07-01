@@ -93,19 +93,6 @@ const faqData = [
   }
 ];
 
-const blogData = [
-  {
-    title: "How to Prepare for Your Makeup Appointment",
-    date: "June 30, 2026",
-    text: "Come with clean skin, avoid heavy skincare, and bring inspiration photos. This helps create a look that matches your event and personal style."
-  },
-  {
-    title: "Soft Glam vs Korean-Inspired Makeup",
-    date: "June 30, 2026",
-    text: "Soft glam usually focuses on sculpted features and polished skin, while Korean-inspired makeup emphasizes fresh skin, soft eyes, and a delicate finish."
-  }
-];
-
 function renderPortfolioCategories() {
   const container = document.getElementById("portfolioCategories");
   container.innerHTML = "";
@@ -165,20 +152,6 @@ function renderFAQ() {
   });
 }
 
-function renderBlog() {
-  const container = document.getElementById("blogList");
-  blogData.forEach(post => {
-    const div = document.createElement("div");
-    div.className = "blog-card";
-    div.innerHTML = `
-      <h3>${post.title}</h3>
-      <p class="sub">${post.date}</p>
-      <p>${post.text}</p>
-    `;
-    container.appendChild(div);
-  });
-}
-
 function listenBookingSlots() {
   const container = document.getElementById("bookingSlots");
 
@@ -207,5 +180,4 @@ function listenBookingSlots() {
 renderPortfolioCategories();
 renderPricing();
 renderFAQ();
-renderBlog();
 listenBookingSlots();
