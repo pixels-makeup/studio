@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peter Makeup Artist</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+
+    <section class="page active" id="home">
+      <div class="hero">
+        <img src="assets/hero.jpg" alt="Makeup Artist Portfolio" />
+        <div class="hero-text">
+          <p class="tag">Los Angeles Makeup Artist</p>
+          <h1>Soft Glam, Bridal & Korean-Inspired Beauty</h1>
+          <button onclick="showPage('booking')">Book Appointment</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>About Me</h2>
+        <p>Hi, I’m Peter. I specialize in natural, soft glam, bridal, graduation, and photoshoot makeup. My style focuses on enhancing your natural features while keeping the final look elegant, clean, and camera-ready.</p>
+      </div>
+
+      <div class="card">
+        <h2>Process</h2>
+        <div class="steps">
+          <div><span>01</span><p>Choose Service</p></div>
+          <div><span>02</span><p>Pick Available Time</p></div>
+          <div><span>03</span><p>Confirm Details</p></div>
+          <div><span>04</span><p>Get Ready</p></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Brands I Use</h2>
+        <div class="brand-list">
+          <span>Dior</span><span>NARS</span><span>Charlotte Tilbury</span><span>Armani</span><span>Hourglass</span><span>Make Up For Ever</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="portfolio">
+      <h1>Portfolio</h1>
+      <div id="portfolioCategories"></div>
+      <div id="portfolioGallery"></div>
+    </section>
+
+    <section class="page" id="pricing">
+      <h1>Pricing</h1>
+      <div id="pricingList"></div>
+    </section>
+
+    <section class="page" id="booking">
+      <h1>Booking</h1>
+      <p class="sub">Choose an available appointment time.</p>
+      <div id="bookingSlots"></div>
+    </section>
+
+    <section class="page" id="faq">
+      <h1>FAQ</h1>
+      <div id="faqList"></div>
+    </section>
+
+    <section class="page" id="contact">
+      <h1>Contact</h1>
+      <div class="card">
+        <p>Email: yourname@email.com</p>
+        <p>Location: Los Angeles, CA</p>
+        <p>Instagram: @yourmakeupartist</p>
+        <p>TikTok: @yourmakeupartist</p>
+        <button onclick="showPage('booking')">Book Now</button>
+      </div>
+    </section>
+
+    <section class="page" id="policies">
+      <h1>Policies</h1>
+      <div class="card">
+        <p><strong>Deposit:</strong> A deposit is required to secure your appointment.</p>
+        <p><strong>Cancellation:</strong> Cancellations must be made at least 48 hours before the appointment.</p>
+        <p><strong>Travel Fee:</strong> Travel fee depends on location, parking, and total travel time.</p>
+        <p><strong>Late Arrival:</strong> Late arrivals may shorten the service time.</p>
+        <p><strong>Reschedule:</strong> Rescheduling depends on availability.</p>
+      </div>
+    </section>
+
+    <section class="page" id="blog">
+      <h1>Beauty Tips</h1>
+      <div id="blogList"></div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button onclick="showPage('home')">🏠<span>Home</span></button>
+    <button onclick="showPage('portfolio')">📷<span>Work</span></button>
+    <button onclick="showPage('pricing')">💄<span>Price</span></button>
+    <button onclick="showPage('booking')">📅<span>Book</span></button>
+    <button onclick="showPage('faq')">❔<span>FAQ</span></button>
+    <button onclick="showPage('contact')">💬<span>Contact</span></button>
+    <button onclick="showPage('policies')">📌<span>Policy</span></button>
+    <button onclick="showPage('blog')">📝<span>Blog</span></button>
+  </nav>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

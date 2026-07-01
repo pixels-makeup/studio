@@ -1,0 +1,14 @@
+# Firebase
+firebase-config.js
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Logs
+*.log

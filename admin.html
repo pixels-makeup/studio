@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Booking</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <h1>Booking Admin</h1>
+
+    <div class="card">
+      <input id="date" type="date" />
+      <input id="time" type="time" />
+      <input id="note" type="text" placeholder="Note, e.g. includes travel time" />
+      <button id="addSlot">Add Available Slot</button>
+    </div>
+
+    <div id="adminSlots"></div>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
