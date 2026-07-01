@@ -44,29 +44,89 @@ const portfolioData = {
 
 const pricingData = [
   {
-    name: "Bridal Makeup",
-    price: "Starting at $250",
-    services: "Skin prep, luxury makeup, lashes, long-wear finish."
+    title: "主妆价格 MAKEUP",
+    items: [
+      {
+        name: "日常妆 DAILY MAKEUP",
+        price: "$87",
+        services: "通勤｜日常｜等日常场合（不包含睫毛和遮瑕）"
+      },
+      {
+        name: "场合妆 DELICATE MAKEUP",
+        price: "$135",
+        services: "晚宴｜生日｜演唱会｜主持｜伴娘等重要场合"
+      },
+      {
+        name: "简单发型 HAIR",
+        price: "+$30",
+        services: "编发/卷发，不含颅周、头发蓬松、纹理空气感等"
+      },
+      {
+        name: "精致发型 DELICATE HAIR",
+        price: "+$60",
+        services: ""
+      }
+    ]
   },
   {
-    name: "Graduation Makeup",
-    price: "Starting at $120",
-    services: "Natural glam, photo-ready base, lashes included."
+    title: "额外附加 ADD-ONS",
+    items: [
+      {
+        name: "急单 URGENT RESERVATION",
+        price: "+$30",
+        services: "4小时内"
+      },
+      {
+        name: "改妆&发 MAKEUP CHANGES",
+        price: "+$180",
+        services: ""
+      },
+      {
+        name: "早/晚班 BEFORE 7:30AM OR AFTER 10:30PM",
+        price: "+$15/hr",
+        services: ""
+      },
+      {
+        name: "额外材料（如假发片等）EXTRA MATERIALS",
+        price: "DM",
+        services: ""
+      },
+      {
+        name: "路费",
+        price: "DM",
+        services: ""
+      }
+    ]
   },
   {
-    name: "Photoshoot Makeup",
-    price: "Starting at $150",
-    services: "Camera-focused makeup, touch-up guidance."
-  },
-  {
-    name: "Event Makeup",
-    price: "Starting at $130",
-    services: "Soft glam or full glam for parties and formal events."
-  },
-  {
-    name: "Hair Styling Add-on",
-    price: "Starting at $60",
-    services: "Simple curls, soft waves, or clean styling."
+    title: "婚礼价格 WEDDING",
+    items: [
+      {
+        name: "新娘单次造型",
+        price: "$420",
+        services: "包含一套妆容+发型"
+      },
+      {
+        name: "全天跟妆",
+        price: "$999",
+        services: "包含一套妆容+发型，2次改妆/发，最多9小时跟妆，不含化妆时间，不收取早班费用"
+      },
+      {
+        name: "半天跟妆",
+        price: "$799",
+        services: "包含一套妆容+发型，1次改妆/发，最多6小时跟妆，不含化妆时间，不收取早班费用"
+      },
+      {
+        name: "新郎/妈妈/亲戚造型",
+        price: "$200",
+        services: "包含一套妆容+发型"
+      },
+      {
+        name: "婚礼试妆 BRIDAL TRIAL",
+        price: "$250",
+        services: "MAKEUP & HAIR，$50 credit"
+      }
+    ]
   }
 ];
 
@@ -126,16 +186,33 @@ function renderPortfolioGallery(category) {
 
 function renderPricing() {
   const container = document.getElementById("pricingList");
-  pricingData.forEach(item => {
+  container.innerHTML = `
+    <div class="pricing-note">
+      全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子
+    </div>
+  `;
+
+  pricingData.forEach(section => {
     const div = document.createElement("div");
     div.className = "price-card";
     div.innerHTML = `
-      <h3>${item.name}</h3>
-      <p class="price">${item.price}</p>
-      <p>${item.services}</p>
+      <h2>${section.title}</h2>
+      ${section.items.map(item => `
+        <div class="price-row">
+          <div>
+            <h3>${item.name}</h3>
+            ${item.services ? `<p>${item.services}</p>` : ""}
+          </div>
+          <p class="price">${item.price}</p>
+        </div>
+      `).join("")}
     `;
     container.appendChild(div);
   });
+
+  container.insertAdjacentHTML("beforeend", `
+    <p class="pricing-footer">提供工作室化妆，如需上门根据距离计算路费。</p>
+  `);
 }
 
 function renderFAQ() {

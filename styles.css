@@ -165,10 +165,61 @@ button {
   margin-bottom: 6px;
 }
 
+.price-card h2 {
+  color: var(--brown);
+  letter-spacing: 0;
+  margin-bottom: 16px;
+}
+
+.price-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(93, 69, 55, 0.12);
+}
+
+.price-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.price-row h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.price-row p {
+  margin: 0;
+  color: var(--brown);
+  line-height: 1.5;
+}
+
 .price {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--rose);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.pricing-note,
+.pricing-footer {
+  background: rgba(248, 241, 237, 0.9);
+  color: var(--brown);
+  line-height: 1.6;
+  padding: 14px 16px;
+  border-radius: 18px;
+}
+
+.pricing-note {
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.pricing-footer {
+  margin: 14px 0 0;
 }
 
 .slot-card {
