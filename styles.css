@@ -14,7 +14,7 @@
 
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Noto Sans SC", sans-serif;
   background: var(--bg);
   color: var(--dark);
 }
@@ -59,6 +59,34 @@ h2 {
   height: 520px;
   object-fit: cover;
   display: block;
+}
+
+.language-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 248, 244, 0.86);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(16, 10, 7, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.language-toggle button {
+  min-width: 42px;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--brown);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.language-toggle button.active {
+  background: var(--dark);
+  color: white;
 }
 
 .hero-text {

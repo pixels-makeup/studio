@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pixels Makeup Studio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,194 +16,319 @@
     <section class="page active" id="home">
       <div class="hero">
         <img src="assets/hero.jpg" alt="Makeup Artist Portfolio" />
+        <div class="language-toggle" aria-label="Language switcher">
+          <button type="button" class="active" data-lang-button="zh" onclick="setLanguage('zh')">中</button>
+          <button type="button" data-lang-button="en" onclick="setLanguage('en')">EN</button>
+        </div>
         <div class="hero-text">
-          <p class="tag">Los Angeles Makeup Artist</p>
-          <h1>Soft Glam, Bridal & Korean-Inspired Beauty</h1>
-          <button onclick="showPage('booking')">Book Appointment</button>
+          <p class="tag" data-i18n="heroTag">洛杉矶化妆师</p>
+          <h1 data-i18n="heroTitle">氛围感妆造、新娘妆与韩系美学</h1>
+          <button onclick="showPage('booking')" data-i18n="heroCta">预约档期</button>
         </div>
       </div>
 
       <div class="card">
-        <h2>Portfolio</h2>
+        <h2 data-i18n="portfolioTitle">Portfolio</h2>
         <div id="portfolioCategories"></div>
         <div id="portfolioGallery"></div>
       </div>
 
       <div class="card">
-        <h2>关于我：</h2>
+        <h2 data-i18n="aboutTitle">关于我：</h2>
         <ul>
-          <li>00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型</li>
-          <li>本科UCSD设计，曾在大厂担任过产品设计师~</li>
-          <li>十年素描和画师经验，对骨骼以及色彩有着敏锐的洞察力</li>
-          <li>起因是因为经常给朋友化妆和改妆多年，想要发展并且给很多的男/女生们找到自信的自己，用自己的一技之长和对色彩的敏锐</li>
+          <li data-i18n="aboutOne">00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型</li>
+          <li data-i18n="aboutTwo">本科UCSD设计，曾在大厂担任过产品设计师~</li>
+          <li data-i18n="aboutThree">十年素描和画师经验，对骨骼以及色彩有着敏锐的洞察力</li>
+          <li data-i18n="aboutFour">起因是因为经常给朋友化妆和改妆多年，想要发展并且给很多的男/女生们找到自信的自己，用自己的一技之长和对色彩的敏锐</li>
         </ul>
-        <h2>关于你想要的妆：</h2>
+        <h2 data-i18n="makeupTitle">关于你想要的妆：</h2>
         <ul>
-          <li>擅长流行的妆造，无论是淡妆/氛围感/甜美/韩妆/气质妆 你想要的风格都是我擅长的点。</li>
-          <li>其他色彩搭配，服装造型和发型搭配都可以驾驭</li>
-          <li>可上门服务 公费出差~</li>
+          <li data-i18n="makeupOne">擅长流行的妆造，无论是淡妆/氛围感/甜美/韩妆/气质妆 你想要的风格都是我擅长的点。</li>
+          <li data-i18n="makeupTwo">其他色彩搭配，服装造型和发型搭配都可以驾驭</li>
+          <li data-i18n="makeupThree">可上门服务 公费出差~</li>
         </ul> 
         
       </div>
 
       <div class="card">
-        <h2>Process</h2>
+        <h2 data-i18n="processTitle">Process</h2>
         <div class="steps">
-          <div><span>01</span><p>Choose Service</p></div>
-          <div><span>02</span><p>Pick Available Time</p></div>
-          <div><span>03</span><p>Confirm Details</p></div>
-          <div><span>04</span><p>Get Ready</p></div>
+          <div><span>01</span><p data-i18n="processOne">Choose Service</p></div>
+          <div><span>02</span><p data-i18n="processTwo">Pick Available Time</p></div>
+          <div><span>03</span><p data-i18n="processThree">Confirm Details</p></div>
+          <div><span>04</span><p data-i18n="processFour">Get Ready</p></div>
         </div>
       </div>
 
       <div class="card">
-        <h2>Contact</h2>
-        <p>微信：got2onme</p>
+        <h2 data-i18n="contactTitle">Contact</h2>
+        <p><span data-i18n="wechatLabel">微信：</span>got2onme</p>
         <p>
-          小红书：
+          <span data-i18n="rednoteLabel">小红书：</span>
           <a href="https://www.rednote.com/user/profile/68522707000000001d0154f4?xsec_token=ABXnUjb5ruOYlnNul1PcVhMGOxs-J5cSFHGmkFraRbi9s%3D&xsec_source=pc_search" target="_blank" rel="noopener noreferrer">LA化妆师长安</a>
         </p>
         <p>
-          Instagram：
+          <span data-i18n="instagramLabel">Instagram：</span>
           <a href="https://www.instagram.com/pixels_makeupstudio/" target="_blank" rel="noopener noreferrer">@pixels_makeupstudio</a>
         </p>
       </div>
     </section>
 
     <section class="page" id="pricing">
-      <h1>价格表</h1>
+      <h1 data-i18n="pricingTitle">价格表</h1>
       <div id="pricingList">
         <div class="pricing-note">
-          全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子
+          <span data-i18n="pricingNote">全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子</span>
         </div>
 
         <div class="price-card">
-          <h2>主妆价格 MAKEUP</h2>
+          <h2 data-i18n="makeupPricingTitle">主妆价格 MAKEUP</h2>
           <div class="price-row">
             <div>
-              <h3>日常妆 DAILY MAKEUP</h3>
-              <p>通勤｜日常｜等日常场合（不包含睫毛和遮瑕）</p>
+              <h3 data-i18n="dailyMakeupName">日常妆 DAILY MAKEUP</h3>
+              <p data-i18n="dailyMakeupDesc">通勤｜日常｜等日常场合（不包含睫毛和遮瑕）</p>
             </div>
             <p class="price">$87</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>场合妆 DELICATE MAKEUP</h3>
-              <p>晚宴｜生日｜演唱会｜主持｜伴娘等重要场合</p>
+              <h3 data-i18n="delicateMakeupName">场合妆 DELICATE MAKEUP</h3>
+              <p data-i18n="delicateMakeupDesc">晚宴｜生日｜演唱会｜主持｜伴娘等重要场合</p>
             </div>
             <p class="price">$135</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>简单发型 HAIR</h3>
-              <p>编发/卷发，不含颅周、头发蓬松、纹理空气感等</p>
+              <h3 data-i18n="simpleHairName">简单发型 HAIR</h3>
+              <p data-i18n="simpleHairDesc">编发/卷发，不含颅周、头发蓬松、纹理空气感等</p>
             </div>
             <p class="price">+$30</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>精致发型 DELICATE HAIR</h3>
+              <h3 data-i18n="delicateHairName">精致发型 DELICATE HAIR</h3>
             </div>
             <p class="price">+$60</p>
           </div>
         </div>
 
         <div class="price-card">
-          <h2>额外附加 ADD-ONS</h2>
+          <h2 data-i18n="addonsPricingTitle">额外附加 ADD-ONS</h2>
           <div class="price-row">
             <div>
-              <h3>急单 URGENT RESERVATION</h3>
-              <p>4小时内</p>
+              <h3 data-i18n="urgentName">急单 URGENT RESERVATION</h3>
+              <p data-i18n="urgentDesc">4小时内</p>
             </div>
             <p class="price">+$30</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>改妆&发 MAKEUP CHANGES</h3>
+              <h3 data-i18n="makeupChangesName">改妆&发 MAKEUP CHANGES</h3>
             </div>
             <p class="price">+$180</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>早/晚班 BEFORE 7:30AM OR AFTER 10:30PM</h3>
+              <h3 data-i18n="earlyLateName">早/晚班 BEFORE 7:30AM OR AFTER 10:30PM</h3>
             </div>
             <p class="price">+$15/hr</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>额外材料（如假发片等）EXTRA MATERIALS</h3>
+              <h3 data-i18n="extraMaterialsName">额外材料（如假发片等）EXTRA MATERIALS</h3>
             </div>
             <p class="price">DM</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>路费</h3>
+              <h3 data-i18n="travelFeeName">路费</h3>
             </div>
             <p class="price">DM</p>
           </div>
         </div>
 
         <div class="price-card">
-          <h2>婚礼价格 WEDDING</h2>
+          <h2 data-i18n="weddingPricingTitle">婚礼价格 WEDDING</h2>
           <div class="price-row">
             <div>
-              <h3>新娘单次造型</h3>
-              <p>包含一套妆容+发型</p>
+              <h3 data-i18n="brideSingleName">新娘单次造型</h3>
+              <p data-i18n="brideSingleDesc">包含一套妆容+发型</p>
             </div>
             <p class="price">$420</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>全天跟妆</h3>
-              <p>包含一套妆容+发型，2次改妆/发，最多9小时跟妆，不含化妆时间，不收取早班费用</p>
+              <h3 data-i18n="fullDayName">全天跟妆</h3>
+              <p data-i18n="fullDayDesc">包含一套妆容+发型，2次改妆/发，最多9小时跟妆，不含化妆时间，不收取早班费用</p>
             </div>
             <p class="price">$999</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>半天跟妆</h3>
-              <p>包含一套妆容+发型，1次改妆/发，最多6小时跟妆，不含化妆时间，不收取早班费用</p>
+              <h3 data-i18n="halfDayName">半天跟妆</h3>
+              <p data-i18n="halfDayDesc">包含一套妆容+发型，1次改妆/发，最多6小时跟妆，不含化妆时间，不收取早班费用</p>
             </div>
             <p class="price">$799</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>新郎/妈妈/亲戚造型</h3>
-              <p>包含一套妆容+发型</p>
+              <h3 data-i18n="familyName">新郎/妈妈/亲戚造型</h3>
+              <p data-i18n="familyDesc">包含一套妆容+发型</p>
             </div>
             <p class="price">$200</p>
           </div>
           <div class="price-row">
             <div>
-              <h3>婚礼试妆 BRIDAL TRIAL</h3>
-              <p>MAKEUP & HAIR，$50 credit</p>
+              <h3 data-i18n="trialName">婚礼试妆 BRIDAL TRIAL</h3>
+              <p data-i18n="trialDesc">MAKEUP & HAIR，$50 credit</p>
             </div>
             <p class="price">$250</p>
           </div>
         </div>
 
-        <p class="pricing-footer">提供工作室化妆，如需上门根据距离计算路费。</p>
+        <p class="pricing-footer" data-i18n="pricingFooter">提供工作室化妆，如需上门根据距离计算路费。</p>
       </div>
     </section>
 
     <section class="page" id="booking">
-      <h1>Book</h1>
+      <h1 data-i18n="bookTitle">Book</h1>
     </section>
 
     <section class="page" id="policies">
-      <h1>Policy</h1>
+      <h1 data-i18n="policyTitle">Policy</h1>
     </section>
 
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="showPage('home')">🏠<span>Home</span></button>
-    <button onclick="showPage('pricing')">💄<span>Price</span></button>
-    <button onclick="showPage('booking')">📅<span>Book</span></button>
-    <button onclick="showPage('policies')">📌<span>Policy</span></button>
+    <button onclick="showPage('home')">🏠<span data-i18n="navHome">Home</span></button>
+    <button onclick="showPage('pricing')">💄<span data-i18n="navPrice">Price</span></button>
+    <button onclick="showPage('booking')">📅<span data-i18n="navBook">Book</span></button>
+    <button onclick="showPage('policies')">📌<span data-i18n="navPolicy">Policy</span></button>
   </nav>
 
   <script>
+    const translations = {
+      zh: {
+        heroTag: "洛杉矶化妆师",
+        heroTitle: "氛围感妆造、新娘妆与韩系美学",
+        heroCta: "预约档期",
+        portfolioTitle: "作品集",
+        aboutTitle: "关于我：",
+        makeupTitle: "关于你想要的妆：",
+        aboutOne: "00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型",
+        aboutTwo: "本科UCSD设计，曾在大厂担任过产品设计师~",
+        aboutThree: "十年素描和画师经验，对骨骼以及色彩有着敏锐的洞察力",
+        aboutFour: "起因是因为经常给朋友化妆和改妆多年，想要发展并且给很多的男/女生们找到自信的自己，用自己的一技之长和对色彩的敏锐",
+        makeupOne: "擅长流行的妆造，无论是淡妆/氛围感/甜美/韩妆/气质妆 你想要的风格都是我擅长的点。",
+        makeupTwo: "其他色彩搭配，服装造型和发型搭配都可以驾驭",
+        makeupThree: "可上门服务 公费出差~",
+        processTitle: "流程",
+        processOne: "选择服务",
+        processTwo: "确认可预约时间",
+        processThree: "沟通妆造细节",
+        processFour: "准备变美",
+        contactTitle: "联系方式",
+        wechatLabel: "微信：",
+        rednoteLabel: "小红书：",
+        instagramLabel: "Instagram：",
+        pricingTitle: "价格表",
+        pricingNote: "全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子",
+        makeupPricingTitle: "主妆价格 MAKEUP",
+        addonsPricingTitle: "额外附加 ADD-ONS",
+        weddingPricingTitle: "婚礼价格 WEDDING",
+        dailyMakeupName: "日常妆 DAILY MAKEUP",
+        dailyMakeupDesc: "通勤｜日常｜等日常场合（不包含睫毛和遮瑕）",
+        delicateMakeupName: "场合妆 DELICATE MAKEUP",
+        delicateMakeupDesc: "晚宴｜生日｜演唱会｜主持｜伴娘等重要场合",
+        simpleHairName: "简单发型 HAIR",
+        simpleHairDesc: "编发/卷发，不含颅周、头发蓬松、纹理空气感等",
+        delicateHairName: "精致发型 DELICATE HAIR",
+        urgentName: "急单 URGENT RESERVATION",
+        urgentDesc: "4小时内",
+        makeupChangesName: "改妆&发 MAKEUP CHANGES",
+        earlyLateName: "早/晚班 BEFORE 7:30AM OR AFTER 10:30PM",
+        extraMaterialsName: "额外材料（如假发片等）EXTRA MATERIALS",
+        travelFeeName: "路费",
+        brideSingleName: "新娘单次造型",
+        brideSingleDesc: "包含一套妆容+发型",
+        fullDayName: "全天跟妆",
+        fullDayDesc: "包含一套妆容+发型，2次改妆/发，最多9小时跟妆，不含化妆时间，不收取早班费用",
+        halfDayName: "半天跟妆",
+        halfDayDesc: "包含一套妆容+发型，1次改妆/发，最多6小时跟妆，不含化妆时间，不收取早班费用",
+        familyName: "新郎/妈妈/亲戚造型",
+        familyDesc: "包含一套妆容+发型",
+        trialName: "婚礼试妆 BRIDAL TRIAL",
+        trialDesc: "MAKEUP & HAIR，$50 credit",
+        pricingFooter: "提供工作室化妆，如需上门根据距离计算路费。",
+        bookTitle: "预约",
+        policyTitle: "政策",
+        navHome: "首页",
+        navPrice: "价格",
+        navBook: "预约",
+        navPolicy: "政策"
+      },
+      en: {
+        heroTag: "Los Angeles Makeup Artist",
+        heroTitle: "Soft Glam, Bridal & Korean-Inspired Beauty",
+        heroCta: "Book Appointment",
+        portfolioTitle: "Portfolio",
+        aboutTitle: "About Me:",
+        makeupTitle: "About Your Look:",
+        aboutOne: "Gen Z Taurus extrovert makeup artist trained in makeup and styling in China and Korea.",
+        aboutTwo: "UCSD design graduate with product design experience at major tech companies.",
+        aboutThree: "Ten years of sketching and illustration experience, with a sharp eye for bone structure and color.",
+        aboutFour: "After years of doing makeup and touch-ups for friends, I want to help more people find a confident version of themselves through my skills and color sensitivity.",
+        makeupOne: "I specialize in popular looks, including natural makeup, soft glam, sweet styles, Korean-inspired makeup, and elegant looks.",
+        makeupTwo: "I can also help with color coordination, outfit styling, and hair styling.",
+        makeupThree: "On-site service and work travel are available.",
+        processTitle: "Process",
+        processOne: "Choose Service",
+        processTwo: "Pick Available Time",
+        processThree: "Confirm Details",
+        processFour: "Get Ready",
+        contactTitle: "Contact",
+        wechatLabel: "WeChat:",
+        rednoteLabel: "RedNote:",
+        instagramLabel: "Instagram:",
+        pricingTitle: "Pricing",
+        pricingNote: "All services include one-time false lashes, full-face moisturizing exfoliation, eyebrow trimming, and upper-lip hair cleanup.",
+        makeupPricingTitle: "Makeup Pricing",
+        addonsPricingTitle: "Add-ons",
+        weddingPricingTitle: "Wedding Pricing",
+        dailyMakeupName: "Daily Makeup",
+        dailyMakeupDesc: "Commute, daily looks, and casual occasions. Lashes and concealing are not included.",
+        delicateMakeupName: "Delicate Makeup",
+        delicateMakeupDesc: "For dinners, birthdays, concerts, hosting, bridesmaids, and other important occasions.",
+        simpleHairName: "Simple Hair",
+        simpleHairDesc: "Braids or curls. Does not include crown volume, fluffy styling, or airy texture work.",
+        delicateHairName: "Delicate Hair",
+        urgentName: "Urgent Reservation",
+        urgentDesc: "Within 4 hours",
+        makeupChangesName: "Makeup & Hair Changes",
+        earlyLateName: "Early/Late Hours Before 7:30AM or After 10:30PM",
+        extraMaterialsName: "Extra Materials, such as hair pieces",
+        travelFeeName: "Travel Fee",
+        brideSingleName: "Bride Single Look",
+        brideSingleDesc: "Includes one makeup look and hairstyle.",
+        fullDayName: "Full Wedding Day Service",
+        fullDayDesc: "Includes one makeup look and hairstyle, 2 makeup/hair changes, up to 9 hours of service. Makeup time is not included, and no early-hour fee is charged.",
+        halfDayName: "Half Wedding Day Service",
+        halfDayDesc: "Includes one makeup look and hairstyle, 1 makeup/hair change, up to 6 hours of service. Makeup time is not included, and no early-hour fee is charged.",
+        familyName: "Groom / Mother / Relative Look",
+        familyDesc: "Includes one makeup look and hairstyle.",
+        trialName: "Bridal Trial",
+        trialDesc: "Makeup & hair, with $50 credit.",
+        pricingFooter: "Studio makeup service is available. Travel fees are calculated by distance for on-site service.",
+        bookTitle: "Book",
+        policyTitle: "Policy",
+        navHome: "Home",
+        navPrice: "Price",
+        navBook: "Book",
+        navPolicy: "Policy"
+      }
+    };
+
     window.showPage = function (pageId) {
       document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
       const target = document.getElementById(pageId);
@@ -208,6 +337,26 @@
         window.scrollTo(0, 0);
       }
     };
+
+    window.setLanguage = function (lang) {
+      const dictionary = translations[lang] || translations.zh;
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      document.querySelectorAll("[data-lang-button]").forEach(button => {
+        button.classList.toggle("active", button.dataset.langButton === lang);
+      });
+
+      document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+      localStorage.setItem("language", lang);
+    };
+
+    setLanguage(localStorage.getItem("language") || "zh");
   </script>
   <script type="module" src="app.js"></script>
 </body>
