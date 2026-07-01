@@ -1,10 +1,3 @@
-import { firebaseConfig } from "./firebase-config.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 window.showPage = function (pageId) {
   document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
   const target = document.getElementById(pageId);
@@ -14,36 +7,64 @@ window.showPage = function (pageId) {
   }
 };
 
-const portfolioData = {
-  Bridal: [
-    {
-      before: "assets/bridal1-before.jpg",
-      after: "assets/bridal1-after.jpg",
-      title: "Soft Bridal Glam"
-    }
-  ],
-  Graduation: [
-    {
-      before: "assets/grad1-before.jpg",
-      after: "assets/grad1-after.jpg",
-      title: "Graduation Natural Look"
-    }
-  ],
-  Photoshoot: [
-    {
-      before: "assets/photo1-before.jpg",
-      after: "assets/photo1-after.jpg",
-      title: "Camera Ready Makeup"
-    }
-  ],
-  Event: [
-    {
-      before: "assets/event1-before.jpg",
-      after: "assets/event1-after.jpg",
-      title: "Evening Glam"
-    }
-  ]
-};
+const portfolioData = [
+  {
+    id: "wedding",
+    name: "婚禮",
+    label: "Wedding",
+    cover: "assets/portfolio-wedding-cover.jpg",
+    description: "新娘妝、婚禮跟妝與重要儀式造型。",
+    works: [
+      {
+        title: "Soft Bridal Glam",
+        image: "assets/portfolio-wedding-cover.jpg",
+        description: "柔和精緻的新娘妝感，適合婚禮與試妝參考。"
+      }
+    ]
+  },
+  {
+    id: "graduation",
+    name: "畢業",
+    label: "Graduation",
+    cover: "assets/portfolio-graduation-cover.jpg",
+    description: "畢業照、典禮與校園拍攝妝造。",
+    works: [
+      {
+        title: "Graduation Natural Look",
+        image: "assets/portfolio-graduation-cover.jpg",
+        description: "乾淨自然、上鏡穩定的畢業妝造。"
+      }
+    ]
+  },
+  {
+    id: "photoshoot",
+    name: "約拍",
+    label: "Photoshoot",
+    cover: "assets/portfolio-photoshoot-cover.jpg",
+    description: "棚拍、外拍與鏡頭前妝髮調整。",
+    works: [
+      {
+        title: "Camera Ready Makeup",
+        image: "assets/portfolio-photoshoot-cover.jpg",
+        description: "適合攝影棚與人像約拍的精緻鏡頭妝。"
+      }
+    ]
+  },
+  {
+    id: "event",
+    name: "場合",
+    label: "Occasion",
+    cover: "assets/portfolio-event-cover.jpg",
+    description: "聚餐、晚宴、生日與重要活動妝造。",
+    works: [
+      {
+        title: "Evening Glam",
+        image: "assets/portfolio-event-cover.jpg",
+        description: "精緻但不厚重的場合妝髮，適合晚宴與朋友聚會。"
+      }
+    ]
+  }
+];
 
 const pricingData = [
   {
@@ -158,32 +179,61 @@ const faqData = [
 
 function renderPortfolioCategories() {
   const container = document.getElementById("portfolioCategories");
+  const gallery = document.getElementById("portfolioGallery");
   container.innerHTML = "";
+  gallery.innerHTML = "";
+  container.hidden = false;
 
-  Object.keys(portfolioData).forEach(category => {
-    const div = document.createElement("div");
-    div.className = "category-card";
-    div.innerHTML = `<strong>${category}</strong><button>View</button>`;
-    div.onclick = () => renderPortfolioGallery(category);
-    container.appendChild(div);
+  portfolioData.forEach(category => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-card";
+    button.innerHTML = `
+      <img src="${category.cover}" alt="${category.name} portfolio cover" loading="lazy">
+      <span class="category-card-shade"></span>
+      <span class="category-card-copy">
+        <strong>${category.name}</strong>
+        <small>${category.label}</small>
+      </span>
+    `;
+    button.onclick = () => renderPortfolioGallery(category.id);
+    container.appendChild(button);
   });
 }
 
-function renderPortfolioGallery(category) {
-  const gallery = document.getElementById("portfolioGallery");
-  gallery.innerHTML = `<h2>${category}</h2>`;
+function renderPortfolioGallery(categoryId) {
+  const category = portfolioData.find(item => item.id === categoryId);
+  if (!category) return;
 
-  portfolioData[category].forEach(item => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <h3>${item.title}</h3>
-      <div class="before-after">
-        <div><p>Before</p><img src="${item.before}" alt="Before"></div>
-        <div><p>After</p><img src="${item.after}" alt="After"></div>
+  const categories = document.getElementById("portfolioCategories");
+  const gallery = document.getElementById("portfolioGallery");
+  categories.hidden = true;
+  gallery.innerHTML = `
+    <div class="portfolio-detail-header">
+      <button type="button" class="portfolio-back" aria-label="返回作品集">返回作品集</button>
+      <div>
+        <p class="section-kicker">${category.label}</p>
+        <h3>${category.name}</h3>
+        <p>${category.description}</p>
+      </div>
+    </div>
+    <div class="portfolio-work-grid"></div>
+  `;
+
+  gallery.querySelector(".portfolio-back").onclick = renderPortfolioCategories;
+
+  const grid = gallery.querySelector(".portfolio-work-grid");
+  category.works.forEach(work => {
+    const article = document.createElement("article");
+    article.className = "portfolio-work-card";
+    article.innerHTML = `
+      <img src="${work.image}" alt="${work.title}" loading="lazy" onerror="this.onerror=null;this.src='assets/hero.jpg';">
+      <div>
+        <h4>${work.title}</h4>
+        <p>${work.description}</p>
       </div>
     `;
-    gallery.appendChild(div);
+    grid.appendChild(article);
   });
 }
 
@@ -234,9 +284,15 @@ function renderFAQ() {
   });
 }
 
-function listenBookingSlots() {
+async function listenBookingSlots() {
   const container = document.getElementById("bookingSlots");
   if (!container) return;
+
+  const { firebaseConfig } = await import("./firebase-config.js");
+  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+  const { getFirestore, collection, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
   onSnapshot(collection(db, "availableSlots"), snapshot => {
     container.innerHTML = "";

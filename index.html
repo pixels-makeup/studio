@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pixels Makeup Studio</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css" />
@@ -13,9 +13,10 @@
 <body>
   <main id="app">
 
-    <section class="page active" id="home">
+    <section class="page active home-page" id="home">
       <div class="hero">
         <img src="assets/hero.jpg" alt="Makeup Artist Portfolio" />
+        <div class="hero-shade"></div>
         <div class="language-toggle" aria-label="Language switcher">
           <button type="button" class="active" data-lang-button="zh" onclick="setLanguage('zh')">中</button>
           <button type="button" data-lang-button="en" onclick="setLanguage('en')">EN</button>
@@ -23,57 +24,77 @@
         <div class="hero-text">
           <p class="tag" data-i18n="heroTag">洛杉矶化妆师</p>
           <h1 data-i18n="heroTitle">氛围感妆造、新娘妆与韩系美学</h1>
-          <button onclick="showPage('booking')" data-i18n="heroCta">预约档期</button>
+          <button class="primary-cta" onclick="showPage('booking')" data-i18n="heroCta">预约档期</button>
         </div>
       </div>
 
-      <div class="card">
-        <h2 data-i18n="portfolioTitle">Portfolio</h2>
-        <div id="portfolioCategories"></div>
-        <div id="portfolioGallery"></div>
-      </div>
+      <section class="home-section portfolio-section" aria-labelledby="portfolio-heading">
+        <div class="section-heading">
+          <p class="section-kicker">Selected Work</p>
+          <h2 id="portfolio-heading" data-i18n="portfolioTitle">Portfolio</h2>
+        </div>
+        <div id="portfolioCategories" class="portfolio-categories"></div>
+        <div id="portfolioGallery" class="portfolio-gallery"></div>
+      </section>
 
-      <div class="card">
-        <h2 data-i18n="aboutTitle">关于我：</h2>
-        <ul>
-          <li data-i18n="aboutOne">00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型</li>
-          <li data-i18n="aboutTwo">本科UCSD设计，曾在大厂担任过产品设计师~</li>
-          <li data-i18n="aboutThree">十年素描和画师经验，对骨骼以及色彩有着敏锐的洞察力</li>
-          <li data-i18n="aboutFour">起因是因为经常给朋友化妆和改妆多年，想要发展并且给很多的男/女生们找到自信的自己，用自己的一技之长和对色彩的敏锐</li>
-        </ul>
-        <h2 data-i18n="makeupTitle">关于你想要的妆：</h2>
-        <ul>
-          <li data-i18n="makeupOne">擅长流行的妆造，无论是淡妆/氛围感/甜美/韩妆/气质妆 你想要的风格都是我擅长的点。</li>
-          <li data-i18n="makeupTwo">其他色彩搭配，服装造型和发型搭配都可以驾驭</li>
-          <li data-i18n="makeupThree">可上门服务 公费出差~</li>
-        </ul> 
-        
-      </div>
+      <section class="home-section about-section" aria-label="About">
+        <div class="about-panel">
+          <div class="section-heading">
+            <p class="section-kicker">Artist</p>
+            <h2 data-i18n="aboutTitle">关于我：</h2>
+          </div>
+          <ul class="editorial-list">
+            <li data-i18n="aboutOne">00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型</li>
+            <li data-i18n="aboutTwo">本科UCSD设计，曾在大厂担任过产品设计师~</li>
+            <li data-i18n="aboutThree">十年素描和画师经验，对骨骼以及色彩有着敏锐的洞察力</li>
+            <li data-i18n="aboutFour">起因是因为经常给朋友化妆和改妆多年，想要发展并且给很多的男/女生们找到自信的自己，用自己的一技之长和对色彩的敏锐</li>
+          </ul>
+        </div>
 
-      <div class="card">
-        <h2 data-i18n="processTitle">Process</h2>
+        <div class="about-panel featured">
+          <div class="section-heading">
+            <p class="section-kicker">Style</p>
+            <h2 data-i18n="makeupTitle">关于你想要的妆：</h2>
+          </div>
+          <ul class="editorial-list">
+            <li data-i18n="makeupOne">擅长流行的妆造，无论是淡妆/氛围感/甜美/韩妆/气质妆 你想要的风格都是我擅长的点。</li>
+            <li data-i18n="makeupTwo">其他色彩搭配，服装造型和发型搭配都可以驾驭</li>
+            <li data-i18n="makeupThree">可上门服务 公费出差~</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="home-section process-section" aria-labelledby="process-heading">
+        <div class="section-heading">
+          <p class="section-kicker">Experience</p>
+          <h2 id="process-heading" data-i18n="processTitle">Process</h2>
+        </div>
         <div class="steps">
           <div><span>01</span><p data-i18n="processOne">Choose Service</p></div>
           <div><span>02</span><p data-i18n="processTwo">Pick Available Time</p></div>
           <div><span>03</span><p data-i18n="processThree">Confirm Details</p></div>
           <div><span>04</span><p data-i18n="processFour">Get Ready</p></div>
         </div>
-      </div>
+      </section>
 
-      <div class="card">
-        <h2 data-i18n="contactTitle">Contact</h2>
-        <p><span data-i18n="wechatLabel">微信：</span>got2onme</p>
-        <p>
-          <span data-i18n="rednoteLabel">小红书：</span>
-          <a href="https://www.rednote.com/user/profile/68522707000000001d0154f4?xsec_token=ABXnUjb5ruOYlnNul1PcVhMGOxs-J5cSFHGmkFraRbi9s%3D&xsec_source=pc_search" target="_blank" rel="noopener noreferrer">LA化妆师长安</a>
-        </p>
-        <p>
-          <span data-i18n="instagramLabel">Instagram：</span>
-          <a href="https://www.instagram.com/pixels_makeupstudio/" target="_blank" rel="noopener noreferrer">@pixels_makeupstudio</a>
-        </p>
-      </div>
+      <section class="home-section contact-section" aria-labelledby="contact-heading">
+        <div class="section-heading">
+          <p class="section-kicker">Connect</p>
+          <h2 id="contact-heading" data-i18n="contactTitle">Contact</h2>
+        </div>
+        <div class="contact-list">
+          <p><span data-i18n="wechatLabel">微信：</span>got2onme</p>
+          <p>
+            <span data-i18n="rednoteLabel">小红书：</span>
+            <a href="https://www.rednote.com/user/profile/68522707000000001d0154f4?xsec_token=ABXnUjb5ruOYlnNul1PcVhMGOxs-J5cSFHGmkFraRbi9s%3D&xsec_source=pc_search" target="_blank" rel="noopener noreferrer">LA化妆师长安</a>
+          </p>
+          <p>
+            <span data-i18n="instagramLabel">Instagram：</span>
+            <a href="https://www.instagram.com/pixels_makeupstudio/" target="_blank" rel="noopener noreferrer">@pixels_makeupstudio</a>
+          </p>
+        </div>
+      </section>
     </section>
-
     <section class="page" id="pricing">
       <h1 data-i18n="pricingTitle">价格表</h1>
       <div id="pricingList">
@@ -201,10 +222,10 @@
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="showPage('home')">🏠<span data-i18n="navHome">Home</span></button>
-    <button onclick="showPage('pricing')">💄<span data-i18n="navPrice">Price</span></button>
-    <button onclick="showPage('booking')">📅<span data-i18n="navBook">Book</span></button>
-    <button onclick="showPage('policies')">📌<span data-i18n="navPolicy">Policy</span></button>
+    <button onclick="showPage('home')"><span class="nav-mark">H</span><span data-i18n="navHome">Home</span></button>
+    <button onclick="showPage('pricing')"><span class="nav-mark">P</span><span data-i18n="navPrice">Price</span></button>
+    <button onclick="showPage('booking')"><span class="nav-mark">B</span><span data-i18n="navBook">Book</span></button>
+    <button onclick="showPage('policies')"><span class="nav-mark">I</span><span data-i18n="navPolicy">Policy</span></button>
   </nav>
 
   <script>
@@ -358,6 +379,6 @@
 
     setLanguage(localStorage.getItem("language") || "zh");
   </script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=portfolio-categories"></script>
 </body>
 </html>
