@@ -62,36 +62,126 @@
 
     <section class="page" id="pricing">
       <h1>价格表</h1>
-      <div id="pricingList"></div>
+      <div id="pricingList">
+        <div class="pricing-note">
+          全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子
+        </div>
+
+        <div class="price-card">
+          <h2>主妆价格 MAKEUP</h2>
+          <div class="price-row">
+            <div>
+              <h3>日常妆 DAILY MAKEUP</h3>
+              <p>通勤｜日常｜等日常场合（不包含睫毛和遮瑕）</p>
+            </div>
+            <p class="price">$87</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>场合妆 DELICATE MAKEUP</h3>
+              <p>晚宴｜生日｜演唱会｜主持｜伴娘等重要场合</p>
+            </div>
+            <p class="price">$135</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>简单发型 HAIR</h3>
+              <p>编发/卷发，不含颅周、头发蓬松、纹理空气感等</p>
+            </div>
+            <p class="price">+$30</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>精致发型 DELICATE HAIR</h3>
+            </div>
+            <p class="price">+$60</p>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <h2>额外附加 ADD-ONS</h2>
+          <div class="price-row">
+            <div>
+              <h3>急单 URGENT RESERVATION</h3>
+              <p>4小时内</p>
+            </div>
+            <p class="price">+$30</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>改妆&发 MAKEUP CHANGES</h3>
+            </div>
+            <p class="price">+$180</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>早/晚班 BEFORE 7:30AM OR AFTER 10:30PM</h3>
+            </div>
+            <p class="price">+$15/hr</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>额外材料（如假发片等）EXTRA MATERIALS</h3>
+            </div>
+            <p class="price">DM</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>路费</h3>
+            </div>
+            <p class="price">DM</p>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <h2>婚礼价格 WEDDING</h2>
+          <div class="price-row">
+            <div>
+              <h3>新娘单次造型</h3>
+              <p>包含一套妆容+发型</p>
+            </div>
+            <p class="price">$420</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>全天跟妆</h3>
+              <p>包含一套妆容+发型，2次改妆/发，最多9小时跟妆，不含化妆时间，不收取早班费用</p>
+            </div>
+            <p class="price">$999</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>半天跟妆</h3>
+              <p>包含一套妆容+发型，1次改妆/发，最多6小时跟妆，不含化妆时间，不收取早班费用</p>
+            </div>
+            <p class="price">$799</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>新郎/妈妈/亲戚造型</h3>
+              <p>包含一套妆容+发型</p>
+            </div>
+            <p class="price">$200</p>
+          </div>
+          <div class="price-row">
+            <div>
+              <h3>婚礼试妆 BRIDAL TRIAL</h3>
+              <p>MAKEUP & HAIR，$50 credit</p>
+            </div>
+            <p class="price">$250</p>
+          </div>
+        </div>
+
+        <p class="pricing-footer">提供工作室化妆，如需上门根据距离计算路费。</p>
+      </div>
     </section>
 
     <section class="page" id="booking">
-      <h1>Booking</h1>
-      <p class="sub">Choose an available appointment time.</p>
-      <div id="bookingSlots"></div>
-      <div class="card">
-        <h2>Contact</h2>
-        <p>Email: yourname@email.com</p>
-        <p>Location: Los Angeles, CA</p>
-        <p>Instagram: @yourmakeupartist</p>
-        <p>TikTok: @yourmakeupartist</p>
-        <button onclick="showPage('booking')">Book Now</button>
-      </div>
+      <h1>Book</h1>
     </section>
 
     <section class="page" id="policies">
-      <h1>Policies</h1>
-      <div class="card">
-        <p><strong>Deposit:</strong> A deposit is required to secure your appointment.</p>
-        <p><strong>Cancellation:</strong> Cancellations must be made at least 48 hours before the appointment.</p>
-        <p><strong>Travel Fee:</strong> Travel fee depends on location, parking, and total travel time.</p>
-        <p><strong>Late Arrival:</strong> Late arrivals may shorten the service time.</p>
-        <p><strong>Reschedule:</strong> Rescheduling depends on availability.</p>
-      </div>
-      <div class="card">
-        <h2>FAQ</h2>
-        <div id="faqList"></div>
-      </div>
+      <h1>Policy</h1>
     </section>
 
   </main>
@@ -103,6 +193,16 @@
     <button onclick="showPage('policies')">📌<span>Policy</span></button>
   </nav>
 
+  <script>
+    window.showPage = function (pageId) {
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      const target = document.getElementById(pageId);
+      if (target) {
+        target.classList.add("active");
+        window.scrollTo(0, 0);
+      }
+    };
+  </script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

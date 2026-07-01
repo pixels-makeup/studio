@@ -7,8 +7,11 @@ const db = getFirestore(app);
 
 window.showPage = function (pageId) {
   document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-  document.getElementById(pageId).classList.add("active");
-  window.scrollTo(0, 0);
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.add("active");
+    window.scrollTo(0, 0);
+  }
 };
 
 const portfolioData = {
@@ -217,6 +220,8 @@ function renderPricing() {
 
 function renderFAQ() {
   const container = document.getElementById("faqList");
+  if (!container) return;
+
   faqData.forEach(item => {
     const div = document.createElement("div");
     div.className = "faq-item";
@@ -231,6 +236,7 @@ function renderFAQ() {
 
 function listenBookingSlots() {
   const container = document.getElementById("bookingSlots");
+  if (!container) return;
 
   onSnapshot(collection(db, "availableSlots"), snapshot => {
     container.innerHTML = "";
@@ -255,6 +261,5 @@ function listenBookingSlots() {
 }
 
 renderPortfolioCategories();
-renderPricing();
 renderFAQ();
 listenBookingSlots();
