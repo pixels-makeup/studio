@@ -10,57 +10,101 @@ window.showPage = function (pageId) {
 const portfolioData = [
   {
     id: "wedding",
-    name: "婚禮",
-    label: "Wedding",
+    name: {
+      zh: "婚禮",
+      en: "Wedding"
+    },
     cover: "assets/portfolio-wedding-cover.jpg",
-    description: "新娘妝、婚禮跟妝與重要儀式造型。",
+    description: {
+      zh: "新娘妝、婚禮跟妝與重要儀式造型。",
+      en: "Bridal makeup, wedding day touch-ups, and polished looks for important ceremonies."
+    },
     works: [
       {
-        title: "Soft Bridal Glam",
+        title: {
+          zh: "柔光新娘妝",
+          en: "Soft Bridal Glam"
+        },
         image: "assets/portfolio-wedding-cover.jpg",
-        description: "柔和精緻的新娘妝感，適合婚禮與試妝參考。"
+        description: {
+          zh: "柔和精緻的新娘妝感，適合婚禮與試妝參考。",
+          en: "A soft, refined bridal look for wedding day and trial makeup reference."
+        }
       }
     ]
   },
   {
     id: "graduation",
-    name: "畢業",
-    label: "Graduation",
+    name: {
+      zh: "畢業",
+      en: "Graduation"
+    },
     cover: "assets/portfolio-graduation-cover.jpg",
-    description: "畢業照、典禮與校園拍攝妝造。",
+    description: {
+      zh: "畢業照、典禮與校園拍攝妝造。",
+      en: "Makeup and styling for graduation portraits, ceremonies, and campus photo sessions."
+    },
     works: [
       {
-        title: "Graduation Natural Look",
+        title: {
+          zh: "自然畢業妝",
+          en: "Graduation Natural Look"
+        },
         image: "assets/portfolio-graduation-cover.jpg",
-        description: "乾淨自然、上鏡穩定的畢業妝造。"
+        description: {
+          zh: "乾淨自然、上鏡穩定的畢業妝造。",
+          en: "A clean, camera-ready graduation look that stays natural in portraits."
+        }
       }
     ]
   },
   {
     id: "photoshoot",
-    name: "約拍",
-    label: "Photoshoot",
+    name: {
+      zh: "約拍",
+      en: "Photoshoot"
+    },
     cover: "assets/portfolio-photoshoot-cover.jpg",
-    description: "棚拍、外拍與鏡頭前妝髮調整。",
+    description: {
+      zh: "棚拍、外拍與鏡頭前妝髮調整。",
+      en: "Makeup and hair adjustments for studio shoots, outdoor portraits, and camera work."
+    },
     works: [
       {
-        title: "Camera Ready Makeup",
+        title: {
+          zh: "鏡頭感妝造",
+          en: "Camera Ready Makeup"
+        },
         image: "assets/portfolio-photoshoot-cover.jpg",
-        description: "適合攝影棚與人像約拍的精緻鏡頭妝。"
+        description: {
+          zh: "適合攝影棚與人像約拍的精緻鏡頭妝。",
+          en: "A polished makeup look designed for studio lighting and portrait sessions."
+        }
       }
     ]
   },
   {
     id: "event",
-    name: "場合",
-    label: "Occasion",
+    name: {
+      zh: "場合",
+      en: "Occasion"
+    },
     cover: "assets/portfolio-event-cover.jpg",
-    description: "聚餐、晚宴、生日與重要活動妝造。",
+    description: {
+      zh: "聚餐、晚宴、生日與重要活動妝造。",
+      en: "Looks for dinners, evening events, birthdays, and special occasions."
+    },
     works: [
       {
-        title: "Evening Glam",
+        title: {
+          zh: "精緻場合妝",
+          en: "Evening Glam"
+        },
         image: "assets/portfolio-event-cover.jpg",
-        description: "精緻但不厚重的場合妝髮，適合晚宴與朋友聚會。"
+        description: {
+          zh: "精緻但不厚重的場合妝髮，適合晚宴與朋友聚會。",
+          en: "A refined but lightweight event look for dinners and gatherings with friends."
+        }
       }
     ]
   }
@@ -180,20 +224,23 @@ const faqData = [
 function renderPortfolioCategories() {
   const container = document.getElementById("portfolioCategories");
   const gallery = document.getElementById("portfolioGallery");
+  const lang = getPortfolioLanguage();
   container.innerHTML = "";
   gallery.innerHTML = "";
   container.hidden = false;
+  gallery.dataset.activeCategory = "";
 
   portfolioData.forEach(category => {
+    const categoryName = getLocalizedText(category.name, lang);
     const button = document.createElement("button");
     button.type = "button";
     button.className = "category-card";
+    button.setAttribute("aria-label", categoryName);
     button.innerHTML = `
-      <img src="${category.cover}" alt="${category.name} portfolio cover" loading="lazy">
+      <img src="${category.cover}" alt="${categoryName}" loading="lazy">
       <span class="category-card-shade"></span>
       <span class="category-card-copy">
-        <strong>${category.name}</strong>
-        <small>${category.label}</small>
+        <strong>${categoryName}</strong>
       </span>
     `;
     button.onclick = () => renderPortfolioGallery(category.id);
@@ -207,14 +254,18 @@ function renderPortfolioGallery(categoryId) {
 
   const categories = document.getElementById("portfolioCategories");
   const gallery = document.getElementById("portfolioGallery");
+  const lang = getPortfolioLanguage();
+  const categoryName = getLocalizedText(category.name, lang);
+  const backLabel = lang === "en" ? "Back to Portfolio" : "返回作品集";
   categories.hidden = true;
+  gallery.dataset.activeCategory = categoryId;
   gallery.innerHTML = `
     <div class="portfolio-detail-header">
-      <button type="button" class="portfolio-back" aria-label="返回作品集">返回作品集</button>
+      <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
       <div>
-        <p class="section-kicker">${category.label}</p>
-        <h3>${category.name}</h3>
-        <p>${category.description}</p>
+        <p class="section-kicker">${categoryName}</p>
+        <h3>${categoryName}</h3>
+        <p>${getLocalizedText(category.description, lang)}</p>
       </div>
     </div>
     <div class="portfolio-work-grid"></div>
@@ -224,18 +275,39 @@ function renderPortfolioGallery(categoryId) {
 
   const grid = gallery.querySelector(".portfolio-work-grid");
   category.works.forEach(work => {
+    const workTitle = getLocalizedText(work.title, lang);
     const article = document.createElement("article");
     article.className = "portfolio-work-card";
     article.innerHTML = `
-      <img src="${work.image}" alt="${work.title}" loading="lazy" onerror="this.onerror=null;this.src='assets/hero.jpg';">
+      <img src="${work.image}" alt="${workTitle}" loading="lazy" onerror="this.onerror=null;this.src='assets/hero.jpg';">
       <div>
-        <h4>${work.title}</h4>
-        <p>${work.description}</p>
+        <h4>${workTitle}</h4>
+        <p>${getLocalizedText(work.description, lang)}</p>
       </div>
     `;
     grid.appendChild(article);
   });
 }
+
+function getPortfolioLanguage() {
+  return document.documentElement.lang === "en" ? "en" : "zh";
+}
+
+function getLocalizedText(value, lang) {
+  if (typeof value === "string") return value;
+  return value[lang] || value.zh || value.en || "";
+}
+
+window.addEventListener("languagechange", () => {
+  const gallery = document.getElementById("portfolioGallery");
+  const activeCategory = gallery?.dataset.activeCategory;
+
+  if (activeCategory) {
+    renderPortfolioGallery(activeCategory);
+  } else {
+    renderPortfolioCategories();
+  }
+});
 
 function renderPricing() {
   const container = document.getElementById("pricingList");

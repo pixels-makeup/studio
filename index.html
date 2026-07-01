@@ -375,10 +375,11 @@
 
       document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
       localStorage.setItem("language", lang);
+      window.dispatchEvent(new CustomEvent("languagechange", { detail: { lang } }));
     };
 
     setLanguage(localStorage.getItem("language") || "zh");
   </script>
-  <script type="module" src="app.js?v=portfolio-categories"></script>
+  <script defer src="app.js?v=portfolio-categories"></script>
 </body>
 </html>
