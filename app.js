@@ -112,50 +112,50 @@ const portfolioData = [
 
 const pricingData = [
   {
-    title: "主妆价格 MAKEUP",
+    title: "主妆价格",
     items: [
       {
-        name: "日常妆 DAILY MAKEUP",
+        name: "日常妆",
         price: "$87",
         services: "通勤｜日常｜等日常场合（不包含睫毛和遮瑕）"
       },
       {
-        name: "场合妆 DELICATE MAKEUP",
+        name: "场合妆",
         price: "$135",
         services: "晚宴｜生日｜演唱会｜主持｜伴娘等重要场合"
       },
       {
-        name: "简单发型 HAIR",
+        name: "简单发型",
         price: "+$30",
         services: "编发/卷发，不含颅周、头发蓬松、纹理空气感等"
       },
       {
-        name: "精致发型 DELICATE HAIR",
+        name: "精致发型",
         price: "+$60",
         services: ""
       }
     ]
   },
   {
-    title: "额外附加 ADD-ONS",
+    title: "额外附加",
     items: [
       {
-        name: "急单 URGENT RESERVATION",
+        name: "急单",
         price: "+$30",
         services: "4小时内"
       },
       {
-        name: "改妆&发 MAKEUP CHANGES",
+        name: "改妆&发",
         price: "+$180",
         services: ""
       },
       {
-        name: "早/晚班 BEFORE 7:30AM OR AFTER 10:30PM",
+        name: "早/晚班（早上7:30前或晚上10:30后）",
         price: "+$15/hr",
         services: ""
       },
       {
-        name: "额外材料（如假发片等）EXTRA MATERIALS",
+        name: "额外材料（如假发片等）",
         price: "DM",
         services: ""
       },
@@ -167,7 +167,7 @@ const pricingData = [
     ]
   },
   {
-    title: "婚礼价格 WEDDING",
+    title: "婚礼价格",
     items: [
       {
         name: "新娘单次造型",
@@ -190,9 +190,9 @@ const pricingData = [
         services: "包含一套妆容+发型"
       },
       {
-        name: "婚礼试妆 BRIDAL TRIAL",
+        name: "婚礼试妆",
         price: "$250",
-        services: "MAKEUP & HAIR，$50 credit"
+        services: "妆发，可抵扣 $50"
       }
     ]
   }
