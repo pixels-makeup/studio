@@ -1,7 +1,7 @@
 const BOOKING_CONFIG = {
   calendarId: "littlehamster516@gmail.com",
   notificationEmail: "littlehamster516@gmail.com",
-  webAppUrl: "https://script.google.com/macros/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec",
+  webAppUrl: "https://script.google.com/macros/u/0/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec",
   siteAcceptUrl: "https://pixels-makeup.github.io/studio/",
   timezone: "America/Los_Angeles",
   serviceDurationMinutes: 180,

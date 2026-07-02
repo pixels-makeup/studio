@@ -392,7 +392,7 @@ renderPortfolioCategories();
 renderFAQ();
 listenBookingSlots();
 
-const BOOKING_API_URL = "https://script.google.com/macros/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec";
+const BOOKING_API_URL = "https://script.google.com/macros/u/0/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec";
 const BOOKING_AUTHUSER = "0";
 
 const bookingSettings = {
