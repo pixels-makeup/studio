@@ -14,7 +14,7 @@ const portfolioData = [
       zh: "婚禮",
       en: "Wedding"
     },
-    cover: "assets/portfolio-wedding-cover.jpg",
+    cover: "assets/portfolio/wedding/cover.jpg",
     description: {
       zh: "新娘妝、婚禮跟妝與重要儀式造型。",
       en: "Bridal makeup, wedding day touch-ups, and polished looks for important ceremonies."
@@ -25,7 +25,7 @@ const portfolioData = [
           zh: "柔光新娘妝",
           en: "Soft Bridal Glam"
         },
-        image: "assets/portfolio-wedding-cover.jpg",
+        image: "assets/portfolio/wedding/cover.jpg",
         description: {
           zh: "柔和精緻的新娘妝感，適合婚禮與試妝參考。",
           en: "A soft, refined bridal look for wedding day and trial makeup reference."
@@ -39,7 +39,7 @@ const portfolioData = [
       zh: "畢業",
       en: "Graduation"
     },
-    cover: "assets/portfolio-graduation-cover.jpg",
+    cover: "assets/portfolio/graduation/cover.jpg",
     description: {
       zh: "畢業照、典禮與校園拍攝妝造。",
       en: "Makeup and styling for graduation portraits, ceremonies, and campus photo sessions."
@@ -50,7 +50,7 @@ const portfolioData = [
           zh: "自然畢業妝",
           en: "Graduation Natural Look"
         },
-        image: "assets/portfolio-graduation-cover.jpg",
+        image: "assets/portfolio/graduation/cover.jpg",
         description: {
           zh: "乾淨自然、上鏡穩定的畢業妝造。",
           en: "A clean, camera-ready graduation look that stays natural in portraits."
@@ -64,7 +64,7 @@ const portfolioData = [
       zh: "約拍",
       en: "Photoshoot"
     },
-    cover: "assets/portfolio-photoshoot-cover.jpg",
+    cover: "assets/portfolio/photoshoot/cover.jpg",
     description: {
       zh: "棚拍、外拍與鏡頭前妝髮調整。",
       en: "Makeup and hair adjustments for studio shoots, outdoor portraits, and camera work."
@@ -75,7 +75,7 @@ const portfolioData = [
           zh: "鏡頭感妝造",
           en: "Camera Ready Makeup"
         },
-        image: "assets/portfolio-photoshoot-cover.jpg",
+        image: "assets/portfolio/photoshoot/cover.jpg",
         description: {
           zh: "適合攝影棚與人像約拍的精緻鏡頭妝。",
           en: "A polished makeup look designed for studio lighting and portrait sessions."
@@ -89,7 +89,7 @@ const portfolioData = [
       zh: "場合",
       en: "Occasion"
     },
-    cover: "assets/portfolio-event-cover.jpg",
+    cover: "assets/portfolio/occasion/cover.jpg",
     description: {
       zh: "聚餐、晚宴、生日與重要活動妝造。",
       en: "Looks for dinners, evening events, birthdays, and special occasions."
@@ -100,7 +100,7 @@ const portfolioData = [
           zh: "精緻場合妝",
           en: "Evening Glam"
         },
-        image: "assets/portfolio-event-cover.jpg",
+        image: "assets/portfolio/occasion/cover.jpg",
         description: {
           zh: "精緻但不厚重的場合妝髮，適合晚宴與朋友聚會。",
           en: "A refined but lightweight event look for dinners and gatherings with friends."
@@ -391,3 +391,465 @@ async function listenBookingSlots() {
 renderPortfolioCategories();
 renderFAQ();
 listenBookingSlots();
+
+const BOOKING_API_URL = "https://script.google.com/macros/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec";
+
+const bookingSettings = {
+  serviceDurationMinutes: 180,
+  slotIntervalMinutes: 60,
+  dayStartHour: 8,
+  dayEndHour: 22,
+  timezone: "America/Los_Angeles",
+  calendarEmail: "littlehamster516@gmail.com"
+};
+
+const bookingServices = [
+  {
+    id: "daily-makeup",
+    zh: "日常妆",
+    en: "Daily Makeup"
+  },
+  {
+    id: "event-makeup",
+    zh: "场合妆",
+    en: "Event Makeup"
+  },
+  {
+    id: "bridal-single",
+    zh: "新娘单次造型",
+    en: "Bride Single Look"
+  },
+  {
+    id: "wedding-day",
+    zh: "婚礼跟妆",
+    en: "Wedding Day Service"
+  },
+  {
+    id: "photoshoot",
+    zh: "约拍妆造",
+    en: "Photoshoot Makeup"
+  },
+  {
+    id: "graduation",
+    zh: "毕业妆造",
+    en: "Graduation Makeup"
+  }
+];
+
+const bookingCopy = {
+  zh: {
+    bookingKicker: "预约申请",
+    bookingIntro: "选择日期和时间后送出申请。我确认后，预约才会正式成立。",
+    calendarKicker: "日历",
+    calendarTitle: "选择日期",
+    timeKicker: "可预约时间",
+    timeTitle: "选择时间",
+    requestKicker: "Request Booking",
+    requestTitle: "预约资料",
+    serviceLabel: "服务",
+    nameLabel: "姓名",
+    instagramFormLabel: "Instagram",
+    wechatFormLabel: "微信",
+    locationLabel: "地点",
+    eventLabel: "活动 / 场合",
+    notesLabel: "备注",
+    submitButton: "送出预约申请",
+    selectDate: "请先选择日期。",
+    loadingTimes: "正在读取 Google Calendar 可预约时间...",
+    mockMode: "预览模式：部署 Google Apps Script 后会读取真实 Google Calendar。",
+    selectTime: "选择一个时间后填写资料。",
+    noSlots: "这一天暂时没有可预约时间。",
+    booked: "Booked",
+    available: "Available",
+    selected: "已选择",
+    summaryEmpty: "请选择日期和时间。",
+    summary: "预约申请：{date} {time}，服务时长约 3 小时，不含车程。",
+    submitMissingTime: "请先选择日期和时间。",
+    submitSending: "正在送出申请...",
+    submitSuccess: "已送出申请。我会收到 Email，确认后会把预约加入 Google Calendar。",
+    submitError: "送出失败，请稍后再试，或直接用微信/Instagram 联系我。",
+    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    weekdays: ["日", "一", "二", "三", "四", "五", "六"]
+  },
+  en: {
+    bookingKicker: "Booking Request",
+    bookingIntro: "Pick a date and time, then send a request. Your appointment is confirmed after I accept it.",
+    calendarKicker: "Calendar",
+    calendarTitle: "Choose a date",
+    timeKicker: "Available Time",
+    timeTitle: "Select a time",
+    requestKicker: "Request Booking",
+    requestTitle: "Your details",
+    serviceLabel: "Service",
+    nameLabel: "Name",
+    instagramFormLabel: "Instagram",
+    wechatFormLabel: "WeChat",
+    locationLabel: "Location",
+    eventLabel: "Event",
+    notesLabel: "Notes",
+    submitButton: "Submit Request",
+    selectDate: "Choose a date first.",
+    loadingTimes: "Checking Google Calendar availability...",
+    mockMode: "Preview mode: deploy Google Apps Script to read your live Google Calendar.",
+    selectTime: "Select a time, then fill out your details.",
+    noSlots: "No available times for this date.",
+    booked: "Booked",
+    available: "Available",
+    selected: "Selected",
+    summaryEmpty: "Choose a date and time.",
+    summary: "Request: {date} at {time}. Service duration is about 3 hours, excluding travel.",
+    submitMissingTime: "Choose a date and time first.",
+    submitSending: "Sending request...",
+    submitSuccess: "Request sent. I will receive an email and add it to Google Calendar after accepting.",
+    submitError: "Could not send the request. Please try again later or contact me on WeChat/Instagram.",
+    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  }
+};
+
+const bookingState = {
+  visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  selectedDate: "",
+  selectedTime: "",
+  slotsByDate: {}
+};
+
+function initBooking() {
+  if (!document.getElementById("bookingCalendar")) return;
+
+  document.getElementById("prevMonth").addEventListener("click", () => changeBookingMonth(-1));
+  document.getElementById("nextMonth").addEventListener("click", () => changeBookingMonth(1));
+  document.getElementById("bookingForm").addEventListener("submit", submitBookingRequest);
+  window.addEventListener("languagechange", renderBooking);
+
+  renderServiceOptions();
+  renderBooking();
+  selectBookingDate(toDateKey(new Date()));
+}
+
+function getBookingLanguage() {
+  return document.documentElement.lang === "en" ? "en" : "zh";
+}
+
+function getBookingCopy(key) {
+  const lang = getBookingLanguage();
+  return bookingCopy[lang][key] || bookingCopy.en[key] || key;
+}
+
+function renderBooking() {
+  const lang = getBookingLanguage();
+  const copy = bookingCopy[lang];
+
+  document.querySelectorAll("[data-booking-i18n]").forEach(element => {
+    const key = element.dataset.bookingI18n;
+    if (copy[key]) element.textContent = copy[key];
+  });
+
+  renderServiceOptions();
+  renderWeekdays();
+  renderCalendar();
+  renderTimeSlots();
+  updateBookingSummary();
+}
+
+function renderServiceOptions() {
+  const select = document.getElementById("bookingService");
+  if (!select) return;
+  const currentValue = select.value;
+  const lang = getBookingLanguage();
+  select.innerHTML = bookingServices.map(service => (
+    `<option value="${service.id}">${service[lang] || service.en}</option>`
+  )).join("");
+  if (currentValue) select.value = currentValue;
+}
+
+function renderWeekdays() {
+  const container = document.querySelector(".calendar-weekdays");
+  if (!container) return;
+  container.innerHTML = bookingCopy[getBookingLanguage()].weekdays
+    .map(day => `<span>${day}</span>`)
+    .join("");
+}
+
+function changeBookingMonth(direction) {
+  bookingState.visibleMonth = new Date(
+    bookingState.visibleMonth.getFullYear(),
+    bookingState.visibleMonth.getMonth() + direction,
+    1
+  );
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const calendar = document.getElementById("bookingCalendar");
+  const label = document.getElementById("calendarMonthLabel");
+  if (!calendar || !label) return;
+
+  const lang = getBookingLanguage();
+  const month = bookingState.visibleMonth;
+  const monthName = bookingCopy[lang].monthNames[month.getMonth()];
+  label.textContent = lang === "en" ? `${monthName} ${month.getFullYear()}` : `${month.getFullYear()} ${monthName}`;
+
+  const firstDay = new Date(month.getFullYear(), month.getMonth(), 1);
+  const lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+  const todayKey = toDateKey(new Date());
+  const cells = [];
+
+  for (let index = 0; index < firstDay.getDay(); index += 1) {
+    cells.push('<span class="calendar-day empty"></span>');
+  }
+
+  for (let day = 1; day <= lastDay.getDate(); day += 1) {
+    const date = new Date(month.getFullYear(), month.getMonth(), day);
+    const dateKey = toDateKey(date);
+    const isPast = dateKey < todayKey;
+    const isSelected = dateKey === bookingState.selectedDate;
+    cells.push(`
+      <button
+        type="button"
+        class="calendar-day ${isSelected ? "selected" : ""}"
+        data-date="${dateKey}"
+        ${isPast ? "disabled" : ""}
+        aria-pressed="${isSelected ? "true" : "false"}"
+      >
+        <span>${day}</span>
+      </button>
+    `);
+  }
+
+  calendar.innerHTML = cells.join("");
+  calendar.querySelectorAll("[data-date]").forEach(button => {
+    button.addEventListener("click", () => selectBookingDate(button.dataset.date));
+  });
+}
+
+async function selectBookingDate(dateKey) {
+  bookingState.selectedDate = dateKey;
+  bookingState.selectedTime = "";
+  document.getElementById("bookingDate").value = dateKey;
+  document.getElementById("bookingTime").value = "";
+  renderCalendar();
+  setBookingStatus(getBookingCopy("loadingTimes"));
+  updateBookingSummary();
+
+  try {
+    const response = await fetchAvailability(dateKey);
+    bookingState.slotsByDate[dateKey] = response.slots || [];
+    if (response.mock) setBookingStatus(getBookingCopy("mockMode"));
+    else setBookingStatus("");
+  } catch (error) {
+    bookingState.slotsByDate[dateKey] = buildMockSlots(dateKey);
+    setBookingStatus(getBookingCopy("mockMode"));
+  }
+
+  renderTimeSlots();
+}
+
+async function fetchAvailability(dateKey) {
+  if (!BOOKING_API_URL) {
+    return { mock: true, slots: buildMockSlots(dateKey) };
+  }
+
+  return callBookingApi("availability", {
+    date: dateKey,
+    duration: bookingSettings.serviceDurationMinutes,
+    interval: bookingSettings.slotIntervalMinutes
+  });
+}
+
+function renderTimeSlots() {
+  const container = document.getElementById("timeSlots");
+  const dateLabel = document.getElementById("selectedDateLabel");
+  if (!container || !dateLabel) return;
+
+  if (!bookingState.selectedDate) {
+    dateLabel.textContent = "";
+    container.innerHTML = `<p class="empty-booking-state">${getBookingCopy("selectDate")}</p>`;
+    return;
+  }
+
+  dateLabel.textContent = formatDisplayDate(bookingState.selectedDate);
+  const slots = bookingState.slotsByDate[bookingState.selectedDate] || [];
+
+  if (!slots.length) {
+    container.innerHTML = `<p class="empty-booking-state">${getBookingCopy("noSlots")}</p>`;
+    return;
+  }
+
+  container.innerHTML = slots.map(slot => {
+    const selected = slot.time === bookingState.selectedTime;
+    const status = slot.available ? getBookingCopy("available") : getBookingCopy("booked");
+    return `
+      <button
+        type="button"
+        class="time-slot ${selected ? "selected" : ""} ${slot.available ? "" : "booked"}"
+        data-time="${slot.time}"
+        ${slot.available ? "" : "disabled"}
+        aria-pressed="${selected ? "true" : "false"}"
+      >
+        <strong>${formatDisplayTime(slot.time)}</strong>
+        <span>${selected ? getBookingCopy("selected") : status}</span>
+      </button>
+    `;
+  }).join("");
+
+  container.querySelectorAll("[data-time]").forEach(button => {
+    button.addEventListener("click", () => selectBookingTime(button.dataset.time));
+  });
+}
+
+function selectBookingTime(time) {
+  bookingState.selectedTime = time;
+  document.getElementById("bookingTime").value = time;
+  renderTimeSlots();
+  updateBookingSummary();
+}
+
+function updateBookingSummary() {
+  const summary = document.getElementById("bookingSummary");
+  const submit = document.getElementById("submitBooking");
+  if (!summary || !submit) return;
+
+  if (!bookingState.selectedDate || !bookingState.selectedTime) {
+    summary.textContent = getBookingCopy("summaryEmpty");
+    submit.disabled = true;
+    return;
+  }
+
+  summary.textContent = getBookingCopy("summary")
+    .replace("{date}", formatDisplayDate(bookingState.selectedDate))
+    .replace("{time}", formatDisplayTime(bookingState.selectedTime));
+  submit.disabled = false;
+}
+
+async function submitBookingRequest(event) {
+  event.preventDefault();
+
+  const message = document.getElementById("bookingFormMessage");
+  const submit = document.getElementById("submitBooking");
+  const form = event.currentTarget;
+
+  if (!bookingState.selectedDate || !bookingState.selectedTime) {
+    message.textContent = getBookingCopy("submitMissingTime");
+    return;
+  }
+
+  const formData = new FormData(form);
+  const payload = Object.fromEntries(formData.entries());
+  const service = bookingServices.find(item => item.id === payload.service);
+  payload.serviceName = service ? service.en : payload.service;
+  payload.language = getBookingLanguage();
+  payload.duration = bookingSettings.serviceDurationMinutes;
+  payload.timezone = bookingSettings.timezone;
+
+  submit.disabled = true;
+  message.textContent = getBookingCopy("submitSending");
+
+  try {
+    if (BOOKING_API_URL) {
+      await callBookingApi("request", payload);
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
+    message.textContent = getBookingCopy("submitSuccess");
+    form.reset();
+    bookingState.selectedTime = "";
+    document.getElementById("bookingDate").value = bookingState.selectedDate;
+    renderServiceOptions();
+    renderTimeSlots();
+    updateBookingSummary();
+  } catch (error) {
+    message.textContent = getBookingCopy("submitError");
+    updateBookingSummary();
+  }
+}
+
+function callBookingApi(action, params) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `bookingCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const url = new URL(BOOKING_API_URL);
+    url.searchParams.set("action", action);
+    url.searchParams.set("callback", callbackName);
+    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value || ""));
+
+    const script = document.createElement("script");
+    const timer = window.setTimeout(() => {
+      cleanup();
+      reject(new Error("Booking API timeout"));
+    }, 12000);
+
+    function cleanup() {
+      window.clearTimeout(timer);
+      delete window[callbackName];
+      script.remove();
+    }
+
+    window[callbackName] = data => {
+      cleanup();
+      if (data && data.ok !== false) resolve(data);
+      else reject(new Error(data?.error || "Booking API error"));
+    };
+
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Booking API script failed"));
+    };
+
+    script.src = url.toString();
+    document.body.appendChild(script);
+  });
+}
+
+function buildMockSlots(dateKey) {
+  const slots = [];
+  const date = new Date(`${dateKey}T00:00:00`);
+  const mockBookedHours = date.getDate() % 2 === 0 ? [9, 17] : [10, 14];
+
+  for (
+    let hour = bookingSettings.dayStartHour;
+    hour <= bookingSettings.dayEndHour - bookingSettings.serviceDurationMinutes / 60;
+    hour += bookingSettings.slotIntervalMinutes / 60
+  ) {
+    const time = `${String(hour).padStart(2, "0")}:00`;
+    slots.push({
+      time,
+      available: !mockBookedHours.includes(hour)
+    });
+  }
+
+  return slots;
+}
+
+function setBookingStatus(message) {
+  const status = document.getElementById("bookingStatus");
+  if (status) status.textContent = message;
+}
+
+function toDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatDisplayDate(dateKey) {
+  const date = new Date(`${dateKey}T00:00:00`);
+  return new Intl.DateTimeFormat(getBookingLanguage() === "en" ? "en-US" : "zh-CN", {
+    month: "long",
+    day: "numeric",
+    weekday: "short"
+  }).format(date);
+}
+
+function formatDisplayTime(time) {
+  const [hours, minutes] = time.split(":").map(Number);
+  const date = new Date();
+  date.setHours(hours, minutes, 0, 0);
+  return new Intl.DateTimeFormat(getBookingLanguage() === "en" ? "en-US" : "zh-CN", {
+    hour: "numeric",
+    minute: "2-digit"
+  }).format(date);
+}
+
+initBooking();

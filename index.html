@@ -93,6 +93,14 @@
             <a href="https://www.instagram.com/pixels_makeupstudio/" target="_blank" rel="noopener noreferrer">@pixels_makeupstudio</a>
           </p>
         </div>
+        <div class="contact-booking-cta">
+          <div>
+            <p class="contact-cta-kicker" data-i18n="contactCtaKicker">Ready to book</p>
+            <h3 data-i18n="contactCtaTitle">准备预约你的专属妆造？</h3>
+            <p data-i18n="contactCtaText">选择服务与日期，我会确认档期、地点和妆造细节。</p>
+          </div>
+          <button type="button" onclick="showPage('booking')" data-i18n="contactCtaButton">预约服务</button>
+        </div>
       </section>
     </section>
     <section class="page" id="pricing">
@@ -212,7 +220,97 @@
     </section>
 
     <section class="page" id="booking">
-      <h1 data-i18n="bookTitle">Book</h1>
+      <div class="booking-page-shell" aria-labelledby="booking-heading">
+        <div class="booking-hero">
+          <p class="section-kicker" data-booking-i18n="bookingKicker">Booking Request</p>
+          <h1 id="booking-heading" data-i18n="bookTitle">Book</h1>
+          <p data-booking-i18n="bookingIntro">Pick a date and time, then send a request. Your appointment is confirmed after I accept it.</p>
+        </div>
+
+        <div class="booking-layout">
+          <section class="booking-panel booking-calendar-panel" aria-labelledby="calendar-heading">
+            <div class="booking-panel-heading">
+              <div>
+                <p class="section-kicker" data-booking-i18n="calendarKicker">Calendar</p>
+                <h2 id="calendar-heading" data-booking-i18n="calendarTitle">Choose a date</h2>
+              </div>
+              <div class="calendar-controls">
+                <button type="button" class="calendar-nav" id="prevMonth" aria-label="Previous month">‹</button>
+                <p id="calendarMonthLabel" aria-live="polite"></p>
+                <button type="button" class="calendar-nav" id="nextMonth" aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true"></div>
+            <div id="bookingCalendar" class="booking-calendar" role="grid" aria-labelledby="calendar-heading"></div>
+          </section>
+
+          <section class="booking-panel booking-time-panel" aria-labelledby="time-heading">
+            <div class="booking-panel-heading compact">
+              <div>
+                <p class="section-kicker" data-booking-i18n="timeKicker">Available Time</p>
+                <h2 id="time-heading" data-booking-i18n="timeTitle">Select a time</h2>
+              </div>
+              <p id="selectedDateLabel" class="selected-date-label"></p>
+            </div>
+            <div id="bookingStatus" class="booking-status" aria-live="polite"></div>
+            <div id="timeSlots" class="time-slots"></div>
+          </section>
+
+          <section class="booking-panel booking-form-panel" aria-labelledby="request-heading">
+            <div class="booking-panel-heading compact">
+              <div>
+                <p class="section-kicker" data-booking-i18n="requestKicker">Request Booking</p>
+                <h2 id="request-heading" data-booking-i18n="requestTitle">Your details</h2>
+              </div>
+            </div>
+            <form id="bookingForm" class="booking-form">
+              <input type="hidden" id="bookingDate" name="date" />
+              <input type="hidden" id="bookingTime" name="time" />
+
+              <label for="bookingService">
+                <span data-booking-i18n="serviceLabel">Service</span>
+                <select id="bookingService" name="service" required></select>
+              </label>
+
+              <label for="clientName">
+                <span data-booking-i18n="nameLabel">Name</span>
+                <input id="clientName" name="name" type="text" autocomplete="name" required />
+              </label>
+
+              <div class="booking-form-grid">
+                <label for="clientInstagram">
+                  <span data-booking-i18n="instagramFormLabel">Instagram</span>
+                  <input id="clientInstagram" name="instagram" type="text" autocomplete="off" />
+                </label>
+
+                <label for="clientWechat">
+                  <span data-booking-i18n="wechatFormLabel">WeChat</span>
+                  <input id="clientWechat" name="wechat" type="text" autocomplete="off" />
+                </label>
+              </div>
+
+              <label for="clientLocation">
+                <span data-booking-i18n="locationLabel">Location</span>
+                <input id="clientLocation" name="location" type="text" autocomplete="street-address" required />
+              </label>
+
+              <label for="clientEvent">
+                <span data-booking-i18n="eventLabel">Event</span>
+                <input id="clientEvent" name="event" type="text" required />
+              </label>
+
+              <label for="clientNotes">
+                <span data-booking-i18n="notesLabel">Notes</span>
+                <textarea id="clientNotes" name="notes" rows="4"></textarea>
+              </label>
+
+              <div id="bookingSummary" class="booking-summary" aria-live="polite"></div>
+              <button type="submit" id="submitBooking" disabled data-booking-i18n="submitButton">Submit Request</button>
+              <p id="bookingFormMessage" class="booking-form-message" role="status"></p>
+            </form>
+          </section>
+        </div>
+      </div>
     </section>
 
     <section class="page" id="policies">
@@ -253,6 +351,10 @@
         wechatLabel: "微信：",
         rednoteLabel: "小红书：",
         instagramLabel: "Instagram：",
+        contactCtaKicker: "预约引导",
+        contactCtaTitle: "准备预约你的专属妆造？",
+        contactCtaText: "选择服务与日期，我会确认档期、地点和妆造细节。",
+        contactCtaButton: "预约服务",
         pricingTitle: "价格表",
         pricingNote: "全部赠送单次假睫毛、全脸保湿去角质、修眉毛与小胡子",
         makeupPricingTitle: "主妆价格",
@@ -312,6 +414,10 @@
         wechatLabel: "WeChat:",
         rednoteLabel: "RedNote:",
         instagramLabel: "Instagram:",
+        contactCtaKicker: "Ready to book",
+        contactCtaTitle: "Book your makeup service",
+        contactCtaText: "Choose a service and date, then I will confirm availability, location, and look details.",
+        contactCtaButton: "Book Service",
         pricingTitle: "Pricing",
         pricingNote: "All services include one-time false lashes, full-face moisturizing exfoliation, eyebrow trimming, and upper-lip hair cleanup.",
         makeupPricingTitle: "Makeup Pricing",
