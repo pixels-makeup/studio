@@ -6,8 +6,8 @@ const BOOKING_CONFIG = {
   timezone: "America/Los_Angeles",
   serviceDurationMinutes: 180,
   slotIntervalMinutes: 60,
-  dayStartHour: 8,
-  dayEndHour: 22,
+  dayStartHour: 0,
+  dayEndHour: 24,
   studioName: "Pixels Makeup Studio"
 };
 
@@ -63,12 +63,12 @@ function getAvailability(params) {
 
   const slots = [];
   for (
-    let hour = BOOKING_CONFIG.dayStartHour;
-    hour <= BOOKING_CONFIG.dayEndHour - duration / 60;
-    hour += BOOKING_CONFIG.slotIntervalMinutes / 60
+    let minutes = BOOKING_CONFIG.dayStartHour * 60;
+    minutes <= BOOKING_CONFIG.dayEndHour * 60 - duration;
+    minutes += BOOKING_CONFIG.slotIntervalMinutes
   ) {
     const slotStart = new Date(date);
-    slotStart.setHours(Math.floor(hour), (hour % 1) * 60, 0, 0);
+    slotStart.setHours(Math.floor(minutes / 60), minutes % 60, 0, 0);
     const slotEnd = new Date(slotStart.getTime() + duration * 60000);
     const available = !events.some(event => slotStart.getTime() < event.end && slotEnd.getTime() > event.start);
 
@@ -91,12 +91,18 @@ function createPendingRequest(params) {
     name: required(params.name, "name"),
     instagram: params.instagram || "",
     wechat: params.wechat || "",
+    rednote: params.rednote || "",
+    phone: params.phone || "",
     location: required(params.location, "location"),
     event: required(params.event, "event"),
     notes: params.notes || "",
     duration: Number(params.duration || BOOKING_CONFIG.serviceDurationMinutes),
     timezone: params.timezone || BOOKING_CONFIG.timezone
   };
+
+  if (![request.wechat, request.rednote, request.phone, request.instagram].some(value => String(value || "").trim())) {
+    throw new Error("Please leave at least one contact method.");
+  }
 
   const pending = getPendingRequests();
   pending.push(request);
@@ -131,8 +137,10 @@ function acceptBookingRequest(params) {
       `Status: Confirmed`,
       `Name: ${request.name}`,
       `Service: ${request.service}`,
-      `Instagram: ${request.instagram}`,
       `WeChat: ${request.wechat}`,
+      `RedNote: ${request.rednote}`,
+      `Phone: ${request.phone}`,
+      `Instagram: ${request.instagram}`,
       `Event: ${request.event}`,
       `Location: ${request.location}`,
       `Notes: ${request.notes}`
@@ -153,8 +161,10 @@ function buildRequestEmail(request) {
     <p><strong>Time:</strong> ${request.time}</p>
     <p><strong>Service:</strong> ${request.service}</p>
     <p><strong>Name:</strong> ${request.name}</p>
-    <p><strong>Instagram:</strong> ${request.instagram || "-"}</p>
     <p><strong>WeChat:</strong> ${request.wechat || "-"}</p>
+    <p><strong>RedNote:</strong> ${request.rednote || "-"}</p>
+    <p><strong>Phone:</strong> ${request.phone || "-"}</p>
+    <p><strong>Instagram:</strong> ${request.instagram || "-"}</p>
     <p><strong>Location:</strong> ${request.location}</p>
     <p><strong>Event:</strong> ${request.event}</p>
     <p><strong>Notes:</strong> ${request.notes || "-"}</p>

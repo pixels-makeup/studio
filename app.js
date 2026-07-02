@@ -397,8 +397,8 @@ const BOOKING_API_URL = "https://script.google.com/macros/s/AKfycbwr53AxuED3AVty
 const bookingSettings = {
   serviceDurationMinutes: 180,
   slotIntervalMinutes: 60,
-  dayStartHour: 8,
-  dayEndHour: 22,
+  dayStartHour: 0,
+  dayEndHour: 24,
   timezone: "America/Los_Angeles",
   calendarEmail: "littlehamster516@gmail.com"
 };
@@ -448,8 +448,11 @@ const bookingCopy = {
     requestTitle: "预约资料",
     serviceLabel: "服务",
     nameLabel: "姓名",
+    contactRequirement: "请至少留下一个联系方式：微信、小红书、电话或 Instagram。",
+    wechatFormLabel: "微信名称",
+    rednoteFormLabel: "小红书名称",
+    phoneFormLabel: "电话",
     instagramFormLabel: "Instagram",
-    wechatFormLabel: "微信",
     locationLabel: "地点",
     eventLabel: "活动 / 场合",
     notesLabel: "备注",
@@ -465,6 +468,7 @@ const bookingCopy = {
     summaryEmpty: "请选择日期和时间。",
     summary: "预约申请：{date} {time}，服务时长约 3 小时，不含车程。",
     submitMissingTime: "请先选择日期和时间。",
+    submitMissingContact: "请至少填写一个联系方式：微信、小红书、电话或 Instagram。",
     submitSending: "正在送出申请...",
     submitSuccess: "已送出申请。我会收到 Email，确认后会把预约加入 Google Calendar。",
     submitError: "送出失败，请稍后再试，或直接用微信/Instagram 联系我。",
@@ -482,8 +486,11 @@ const bookingCopy = {
     requestTitle: "Your details",
     serviceLabel: "Service",
     nameLabel: "Name",
+    contactRequirement: "Leave at least one contact method: WeChat, RedNote, phone, or Instagram.",
+    wechatFormLabel: "WeChat name",
+    rednoteFormLabel: "RedNote name",
+    phoneFormLabel: "Phone",
     instagramFormLabel: "Instagram",
-    wechatFormLabel: "WeChat",
     locationLabel: "Location",
     eventLabel: "Event",
     notesLabel: "Notes",
@@ -499,6 +506,7 @@ const bookingCopy = {
     summaryEmpty: "Choose a date and time.",
     summary: "Request: {date} at {time}. Service duration is about 3 hours, excluding travel.",
     submitMissingTime: "Choose a date and time first.",
+    submitMissingContact: "Leave at least one contact method: WeChat, RedNote, phone, or Instagram.",
     submitSending: "Sending request...",
     submitSuccess: "Request sent. I will receive an email and add it to Google Calendar after accepting.",
     submitError: "Could not send the request. Please try again later or contact me on WeChat/Instagram.",
@@ -737,6 +745,13 @@ async function submitBookingRequest(event) {
 
   const formData = new FormData(form);
   const payload = Object.fromEntries(formData.entries());
+  const contactFields = ["wechat", "rednote", "phone", "instagram"];
+  const hasContact = contactFields.some(field => (payload[field] || "").trim());
+  if (!hasContact) {
+    message.textContent = getBookingCopy("submitMissingContact");
+    return;
+  }
+
   const service = bookingServices.find(item => item.id === payload.service);
   payload.serviceName = service ? service.en : payload.service;
   payload.language = getBookingLanguage();
@@ -829,11 +844,13 @@ function buildMockSlots(dateKey) {
   const mockBookedHours = date.getDate() % 2 === 0 ? [9, 17] : [10, 14];
 
   for (
-    let hour = bookingSettings.dayStartHour;
-    hour <= bookingSettings.dayEndHour - bookingSettings.serviceDurationMinutes / 60;
-    hour += bookingSettings.slotIntervalMinutes / 60
+    let minutes = bookingSettings.dayStartHour * 60;
+    minutes <= bookingSettings.dayEndHour * 60 - bookingSettings.serviceDurationMinutes;
+    minutes += bookingSettings.slotIntervalMinutes
   ) {
-    const time = `${String(hour).padStart(2, "0")}:00`;
+    const hour = Math.floor(minutes / 60);
+    const minute = minutes % 60;
+    const time = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
     slots.push({
       time,
       available: !mockBookedHours.includes(hour)

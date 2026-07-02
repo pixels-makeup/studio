@@ -277,15 +277,27 @@
                 <input id="clientName" name="name" type="text" autocomplete="name" required />
               </label>
 
+              <p id="contactRequirement" class="booking-field-hint" data-booking-i18n="contactRequirement">Leave at least one contact method.</p>
+
               <div class="booking-form-grid">
+                <label for="clientWechat">
+                  <span data-booking-i18n="wechatFormLabel">WeChat name</span>
+                  <input id="clientWechat" name="wechat" type="text" autocomplete="off" />
+                </label>
+
+                <label for="clientRednote">
+                  <span data-booking-i18n="rednoteFormLabel">RedNote name</span>
+                  <input id="clientRednote" name="rednote" type="text" autocomplete="off" />
+                </label>
+
+                <label for="clientPhone">
+                  <span data-booking-i18n="phoneFormLabel">Phone</span>
+                  <input id="clientPhone" name="phone" type="tel" autocomplete="tel" />
+                </label>
+
                 <label for="clientInstagram">
                   <span data-booking-i18n="instagramFormLabel">Instagram</span>
                   <input id="clientInstagram" name="instagram" type="text" autocomplete="off" />
-                </label>
-
-                <label for="clientWechat">
-                  <span data-booking-i18n="wechatFormLabel">WeChat</span>
-                  <input id="clientWechat" name="wechat" type="text" autocomplete="off" />
                 </label>
               </div>
 

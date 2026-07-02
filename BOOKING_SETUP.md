@@ -41,8 +41,9 @@ Current defaults:
 - Available days: Monday to Sunday
 - Service duration: 180 minutes
 - Slot interval: 60 minutes
-- Day window: 08:00 to 22:00
+- Day window: 00:00 to 24:00
 - Pending requests block the same time until accepted or cleared
+- Clients must leave at least one contact method: WeChat, RedNote, phone, or Instagram
 
 To change rules, edit `BOOKING_CONFIG` in `google-apps-script/booking-backend.gs` and the matching `bookingSettings` in `app.js`.
 
