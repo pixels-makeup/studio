@@ -393,6 +393,7 @@ renderFAQ();
 listenBookingSlots();
 
 const BOOKING_API_URL = "https://script.google.com/macros/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec";
+const BOOKING_AUTHUSER = "0";
 
 const bookingSettings = {
   serviceDurationMinutes: 180,
@@ -806,6 +807,7 @@ function callBookingApi(action, params) {
   return new Promise((resolve, reject) => {
     const callbackName = `bookingCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const url = new URL(BOOKING_API_URL);
+    url.searchParams.set("authuser", BOOKING_AUTHUSER);
     url.searchParams.set("action", action);
     url.searchParams.set("callback", callbackName);
     Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value || ""));
