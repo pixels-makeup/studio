@@ -52,4 +52,7 @@ To change rules, edit `BOOKING_CONFIG` in `google-apps-script/booking-backend.gs
 2. Apps Script stores it as Pending.
 3. Apps Script emails `littlehamster516@gmail.com`.
 4. Click the `Accept and add to Google Calendar` button in the email.
-5. Apps Script creates the Google Calendar event and removes the Pending request.
+5. The button opens the site with `?bookingAction=accept&token=...`.
+6. The site calls Apps Script to create the Google Calendar event and remove the Pending request.
+
+The email intentionally links to the GitHub Pages site first instead of directly to `script.google.com`. This avoids Google multi-account redirects such as `/macros/u/3/s/...`, which can break Apps Script Web App links from Gmail.

@@ -1,6 +1,8 @@
 const BOOKING_CONFIG = {
   calendarId: "littlehamster516@gmail.com",
   notificationEmail: "littlehamster516@gmail.com",
+  webAppUrl: "https://script.google.com/macros/s/AKfycbwr53AxuED3AVtyoN4-rGZb_fPeKW-QP-eKpKd8MKCH1tJnfEoQfMYgmgb6Jr2A0fHU/exec",
+  siteAcceptUrl: "https://pixels-makeup.github.io/studio/",
   timezone: "America/Los_Angeles",
   serviceDurationMinutes: 180,
   slotIntervalMinutes: 60,
@@ -22,7 +24,7 @@ function doGet(event) {
       payload = createPendingRequest(params);
     } else if (params.action === "accept") {
       payload = acceptBookingRequest(params);
-      return HtmlService.createHtmlOutput(payload.message);
+      if (!params.callback) return HtmlService.createHtmlOutput(payload.message);
     } else {
       payload = { ok: false, error: "Unknown action" };
     }
@@ -144,7 +146,7 @@ function acceptBookingRequest(params) {
 }
 
 function buildRequestEmail(request) {
-  const acceptUrl = `${ScriptApp.getService().getUrl()}?action=accept&token=${encodeURIComponent(request.token)}`;
+  const acceptUrl = `${BOOKING_CONFIG.siteAcceptUrl}?bookingAction=accept&token=${encodeURIComponent(request.token)}`;
   return `
     <h2>New booking request</h2>
     <p><strong>Date:</strong> ${request.date}</p>

@@ -525,6 +525,7 @@ function initBooking() {
   renderServiceOptions();
   renderBooking();
   selectBookingDate(toDateKey(new Date()));
+  handleBookingActionFromUrl();
 }
 
 function getBookingLanguage() {
@@ -760,8 +761,29 @@ async function submitBookingRequest(event) {
     renderTimeSlots();
     updateBookingSummary();
   } catch (error) {
-    message.textContent = getBookingCopy("submitError");
+    console.error("Booking request failed:", error);
+    message.textContent = `${getBookingCopy("submitError")} (${error.message})`;
     updateBookingSummary();
+  }
+}
+
+async function handleBookingActionFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const action = params.get("bookingAction");
+  const token = params.get("token");
+
+  if (action !== "accept" || !token) return;
+
+  showPage("booking");
+  setBookingStatus("Accepting booking request...");
+
+  try {
+    const response = await callBookingApi("accept", { token });
+    setBookingStatus(response.message || "Booking accepted and added to Google Calendar.");
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } catch (error) {
+    console.error("Booking accept failed:", error);
+    setBookingStatus(`Accept failed: ${error.message}`);
   }
 }
 
@@ -793,7 +815,7 @@ function callBookingApi(action, params) {
 
     script.onerror = () => {
       cleanup();
-      reject(new Error("Booking API script failed"));
+      reject(new Error(`Booking API script failed: ${url.toString()}`));
     };
 
     script.src = url.toString();
