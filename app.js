@@ -464,7 +464,7 @@ function renderPortfolioGallery(categoryId) {
         <p>${getLocalizedText(category.description, lang)}</p>
       </div>
     </div>
-    <div class="portfolio-work-grid"></div>
+    <div class="portfolio-work-grid portfolio-collection-grid"></div>
   `;
 
   gallery.querySelector(".portfolio-back").onclick = renderPortfolioCategories;
