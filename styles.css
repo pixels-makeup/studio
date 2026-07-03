@@ -350,7 +350,7 @@ a:focus-visible {
 
 .portfolio-detail-header {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   align-items: start;
   margin-bottom: 18px;
@@ -370,6 +370,9 @@ a:focus-visible {
 }
 
 .portfolio-back {
+  display: block;
+  width: fit-content;
+  margin: 18px 0 0 auto;
   min-height: 42px;
   padding: 10px 15px;
   border: 1px solid rgba(183, 111, 99, 0.28);
@@ -1290,6 +1293,11 @@ html[lang="en"] .policy-copy[data-policy-lang="en"] {
 
   .portfolio-detail-header {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-back {
+    width: 100%;
+    margin-top: 22px;
   }
 
   .contact-booking-cta button {

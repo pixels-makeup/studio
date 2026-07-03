@@ -457,7 +457,6 @@ function renderPortfolioGallery(categoryId) {
   gallery.dataset.activeCollection = "";
   gallery.innerHTML = `
     <div class="portfolio-detail-header">
-      <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
       <div>
         <p class="section-kicker">${categoryName}</p>
         <h3>${categoryName}</h3>
@@ -465,6 +464,7 @@ function renderPortfolioGallery(categoryId) {
       </div>
     </div>
     <div class="portfolio-work-grid portfolio-collection-grid"></div>
+    <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
   `;
 
   gallery.querySelector(".portfolio-back").onclick = renderPortfolioCategories;
@@ -508,7 +508,6 @@ function renderPortfolioCollection(categoryId, group) {
   gallery.dataset.activeCollection = String(collection.group);
   gallery.innerHTML = `
     <div class="portfolio-detail-header">
-      <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
       <div>
         <p class="section-kicker">${categoryName}</p>
         <h3>${title}</h3>
@@ -516,6 +515,7 @@ function renderPortfolioCollection(categoryId, group) {
       </div>
     </div>
     <div class="portfolio-work-grid"></div>
+    <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
   `;
 
   gallery.querySelector(".portfolio-back").onclick = () => renderPortfolioGallery(category.id);
