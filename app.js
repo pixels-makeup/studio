@@ -380,11 +380,34 @@ function getLocalizedText(value, lang) {
   return value[lang] || value.zh || value.en || "";
 }
 
+function isInlinePortfolioLayout() {
+  return window.matchMedia("(max-width: 719px)").matches;
+}
+
+function positionPortfolioGallery(categoryId) {
+  const categories = document.getElementById("portfolioCategories");
+  const gallery = document.getElementById("portfolioGallery");
+  if (!categories || !gallery) return;
+
+  const activeCard = categories.querySelector(`[data-category-id="${categoryId}"]`);
+  categories.hidden = false;
+
+  if (isInlinePortfolioLayout() && activeCard) {
+    activeCard.after(gallery);
+  } else {
+    categories.after(gallery);
+  }
+}
+
 function renderPortfolioCategories() {
   const container = document.getElementById("portfolioCategories");
   const gallery = document.getElementById("portfolioGallery");
   const lang = getPortfolioLanguage();
   if (!container || !gallery) return;
+
+  if (gallery.parentElement === container) {
+    container.after(gallery);
+  }
 
   container.innerHTML = "";
   gallery.innerHTML = "";
@@ -397,7 +420,9 @@ function renderPortfolioCategories() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "category-card";
+    button.dataset.categoryId = category.id;
     button.setAttribute("aria-label", categoryName);
+    button.setAttribute("aria-expanded", "false");
     button.innerHTML = `
       <img src="${category.cover}" alt="${categoryName}" loading="lazy">
       <span class="category-card-shade"></span>
@@ -422,7 +447,12 @@ function renderPortfolioGallery(categoryId) {
   const collectionLabel = lang === "en" ? "Collection" : "合辑";
   if (!categories || !gallery) return;
 
-  categories.hidden = true;
+  positionPortfolioGallery(categoryId);
+  categories.querySelectorAll(".category-card").forEach(card => {
+    const isActive = card.dataset.categoryId === categoryId;
+    card.classList.toggle("active", isActive);
+    card.setAttribute("aria-expanded", String(isActive));
+  });
   gallery.dataset.activeCategory = categoryId;
   gallery.dataset.activeCollection = "";
   gallery.innerHTML = `
@@ -473,6 +503,7 @@ function renderPortfolioCollection(categoryId, group) {
   const title = `${categoryName} ${collectionLabel} ${collection.group}`;
   if (!gallery) return;
 
+  positionPortfolioGallery(categoryId);
   gallery.dataset.activeCategory = categoryId;
   gallery.dataset.activeCollection = String(collection.group);
   gallery.innerHTML = `

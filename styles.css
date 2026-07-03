@@ -280,6 +280,16 @@ a:focus-visible {
   box-shadow: 0 16px 34px rgba(72, 45, 35, 0.1);
 }
 
+.category-card.active {
+  border-color: rgba(151, 68, 56, 0.72);
+  box-shadow: 0 14px 30px rgba(72, 45, 35, 0.12);
+}
+
+.portfolio-categories > .portfolio-gallery {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+
 .category-card img,
 .portfolio-work-card img {
   width: 100%;
