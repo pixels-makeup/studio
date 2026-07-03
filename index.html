@@ -9,7 +9,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="styles.css?v=portfolio-photo-contain-20260702" />
+  <link rel="stylesheet" href="styles.css?v=home-featured-portfolio-20260702" />
 </head>
 <body>
   <main id="app">
@@ -36,6 +36,15 @@
         </div>
         <div id="portfolioCategories" class="portfolio-categories"></div>
         <div id="portfolioGallery" class="portfolio-gallery"></div>
+      </section>
+
+      <section class="home-section featured-showcase-section" aria-labelledby="featured-showcase-heading">
+        <div class="section-heading">
+          <p class="section-kicker">Featured Looks</p>
+          <h2 id="featured-showcase-heading" data-i18n="featuredShowcaseTitle">精选妆造</h2>
+          <p data-i18n="featuredShowcaseText">点击照片查看对应合辑。</p>
+        </div>
+        <div id="featuredPortfolioGrid" class="featured-portfolio-grid"></div>
       </section>
 
       <section class="home-section about-section" aria-label="About">
@@ -346,6 +355,8 @@
         heroTitle: "氛围感妆造、新娘妆与韩系美学",
         heroCta: "预约档期",
         portfolioTitle: "作品集",
+        featuredShowcaseTitle: "精选妆造",
+        featuredShowcaseText: "点击照片查看对应合辑。",
         aboutTitle: "关于我：",
         makeupTitle: "关于你想要的妆：",
         aboutOne: "00后金牛座E人化妆师，曾在中国与韩国进修过化妆与造型",
@@ -409,6 +420,8 @@
         heroTitle: "Soft Glam, Bridal & Korean-Inspired Beauty",
         heroCta: "Book Appointment",
         portfolioTitle: "Portfolio",
+        featuredShowcaseTitle: "Featured Looks",
+        featuredShowcaseText: "Select a photo to view its collection.",
         aboutTitle: "About Me:",
         makeupTitle: "About Your Look:",
         aboutOne: "Gen Z Taurus extrovert makeup artist trained in makeup and styling in China and Korea.",
@@ -499,6 +512,6 @@
 
     setLanguage(localStorage.getItem("language") || "zh");
   </script>
-  <script defer src="app.js?v=portfolio-collections-20260702"></script>
+  <script defer src="app.js?v=home-featured-portfolio-20260702"></script>
 </body>
 </html>

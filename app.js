@@ -172,6 +172,26 @@ const portfolioCollectionsData = [
   }
 ];
 
+const featuredPortfolioItems = [
+  "g1.1",
+  "p1.1",
+  "p1.2",
+  "p1.3",
+  "p1.4",
+  "p2.1",
+  "p2.2",
+  "p3.1",
+  "p4.1",
+  "p4.2",
+  "p5.1",
+  "p5.2",
+  "p5.3",
+  "p5.4",
+  "w1.1",
+  "w1.2",
+  "w1.3"
+];
+
 const pricingData = [
   {
     title: "主妆价格",
@@ -489,10 +509,66 @@ function getPortfolioImagePath(category, group, index) {
   return `assets/portfolio/${category.folder}/${category.code}${group}.${index}.jpg`;
 }
 
+function parsePortfolioImageRef(ref) {
+  const match = String(ref).trim().match(/^([a-z])(\d+)\.(\d+)$/i);
+  if (!match) return null;
+
+  return {
+    code: match[1].toLowerCase(),
+    group: Number(match[2]),
+    index: Number(match[3]),
+    label: `${match[1].toLowerCase()}${match[2]}.${match[3]}`
+  };
+}
+
+function getPortfolioCategoryByCode(code) {
+  return portfolioCollectionsData.find(category => category.code === code);
+}
+
+function renderFeaturedPortfolio() {
+  const grid = document.getElementById("featuredPortfolioGrid");
+  if (!grid) return;
+
+  const lang = getPortfolioLanguage();
+  grid.innerHTML = "";
+
+  featuredPortfolioItems.forEach(ref => {
+    const item = parsePortfolioImageRef(ref);
+    const category = item ? getPortfolioCategoryByCode(item.code) : null;
+    const collection = category?.collections.find(entry => entry.group === item.group);
+    if (!item || !category || !collection || item.index > collection.count) return;
+
+    const categoryName = getLocalizedText(category.name, lang);
+    const image = getPortfolioImagePath(category, item.group, item.index);
+    const title = `${item.label} ${categoryName}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "featured-portfolio-card";
+    button.setAttribute("aria-label", lang === "en" ? `Open ${title} collection` : `打开 ${title} 合辑`);
+    button.innerHTML = `
+      <img src="${image}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${category.cover}';">
+      <span>${item.label}</span>
+    `;
+    button.onclick = () => openFeaturedPortfolioItem(item);
+    grid.appendChild(button);
+  });
+}
+
+function openFeaturedPortfolioItem(item) {
+  const category = getPortfolioCategoryByCode(item.code);
+  if (!category) return;
+
+  showPage("home");
+  renderPortfolioCollection(category.id, item.group);
+  document.getElementById("portfolio-heading")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 window.addEventListener("languagechange", () => {
   const gallery = document.getElementById("portfolioGallery");
   const activeCategory = gallery?.dataset.activeCategory;
   const activeCollection = gallery?.dataset.activeCollection;
+
+  renderFeaturedPortfolio();
 
   if (activeCategory && activeCollection) {
     renderPortfolioCollection(activeCategory, activeCollection);
@@ -583,6 +659,7 @@ async function listenBookingSlots() {
 }
 
 renderPortfolioCategories();
+renderFeaturedPortfolio();
 renderFAQ();
 listenBookingSlots();
 
