@@ -110,6 +110,68 @@ const portfolioData = [
   }
 ];
 
+const portfolioCollectionsData = [
+  {
+    id: "wedding",
+    code: "w",
+    folder: "wedding",
+    name: { zh: "婚礼", en: "Wedding" },
+    cover: "assets/portfolio/wedding/cover.jpg",
+    description: {
+      zh: "新娘妆、婚礼跟妆与重要仪式造型。",
+      en: "Bridal makeup, wedding day touch-ups, and polished looks for important ceremonies."
+    },
+    collections: [{ group: 1, count: 5 }]
+  },
+  {
+    id: "graduation",
+    code: "g",
+    folder: "graduation",
+    name: { zh: "毕业", en: "Graduation" },
+    cover: "assets/portfolio/graduation/cover.jpg",
+    description: {
+      zh: "毕业照、典礼与校园拍摄妆造。",
+      en: "Makeup and styling for graduation portraits, ceremonies, and campus photo sessions."
+    },
+    collections: [{ group: 1, count: 2 }]
+  },
+  {
+    id: "photoshoot",
+    code: "p",
+    folder: "photoshoot",
+    name: { zh: "约拍", en: "Photoshoot" },
+    cover: "assets/portfolio/photoshoot/cover.jpg",
+    description: {
+      zh: "棚拍、外拍与镜头前妆发调整。",
+      en: "Makeup and hair adjustments for studio shoots, outdoor portraits, and camera work."
+    },
+    collections: [
+      { group: 1, count: 4 },
+      { group: 2, count: 3 },
+      { group: 3, count: 1 },
+      { group: 4, count: 3 },
+      { group: 5, count: 5 }
+    ]
+  },
+  {
+    id: "event",
+    code: "o",
+    folder: "occasion",
+    name: { zh: "场合", en: "Occasion" },
+    cover: "assets/portfolio/occasion/cover.jpg",
+    description: {
+      zh: "聚餐、晚宴、生日与重要活动妆造。",
+      en: "Looks for dinners, evening events, birthdays, and special occasions."
+    },
+    collections: [
+      { group: 1, count: 2 },
+      { group: 2, count: 6 },
+      { group: 3, count: 4 },
+      { group: 4, count: 3 }
+    ]
+  }
+];
+
 const pricingData = [
   {
     title: "主妆价格",
@@ -298,11 +360,143 @@ function getLocalizedText(value, lang) {
   return value[lang] || value.zh || value.en || "";
 }
 
+function renderPortfolioCategories() {
+  const container = document.getElementById("portfolioCategories");
+  const gallery = document.getElementById("portfolioGallery");
+  const lang = getPortfolioLanguage();
+  if (!container || !gallery) return;
+
+  container.innerHTML = "";
+  gallery.innerHTML = "";
+  container.hidden = false;
+  gallery.dataset.activeCategory = "";
+  gallery.dataset.activeCollection = "";
+
+  portfolioCollectionsData.forEach(category => {
+    const categoryName = getLocalizedText(category.name, lang);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-card";
+    button.setAttribute("aria-label", categoryName);
+    button.innerHTML = `
+      <img src="${category.cover}" alt="${categoryName}" loading="lazy">
+      <span class="category-card-shade"></span>
+      <span class="category-card-copy">
+        <strong>${categoryName}</strong>
+      </span>
+    `;
+    button.onclick = () => renderPortfolioGallery(category.id);
+    container.appendChild(button);
+  });
+}
+
+function renderPortfolioGallery(categoryId) {
+  const category = portfolioCollectionsData.find(item => item.id === categoryId);
+  if (!category) return;
+
+  const categories = document.getElementById("portfolioCategories");
+  const gallery = document.getElementById("portfolioGallery");
+  const lang = getPortfolioLanguage();
+  const categoryName = getLocalizedText(category.name, lang);
+  const backLabel = lang === "en" ? "Back to Portfolio" : "返回作品集";
+  const collectionLabel = lang === "en" ? "Collection" : "合辑";
+  if (!categories || !gallery) return;
+
+  categories.hidden = true;
+  gallery.dataset.activeCategory = categoryId;
+  gallery.dataset.activeCollection = "";
+  gallery.innerHTML = `
+    <div class="portfolio-detail-header">
+      <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
+      <div>
+        <p class="section-kicker">${categoryName}</p>
+        <h3>${categoryName}</h3>
+        <p>${getLocalizedText(category.description, lang)}</p>
+      </div>
+    </div>
+    <div class="portfolio-work-grid"></div>
+  `;
+
+  gallery.querySelector(".portfolio-back").onclick = renderPortfolioCategories;
+
+  const grid = gallery.querySelector(".portfolio-work-grid");
+  category.collections.forEach(collection => {
+    const title = `${categoryName} ${collectionLabel} ${collection.group}`;
+    const cover = getPortfolioImagePath(category, collection.group, 1);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-card portfolio-collection-card";
+    button.setAttribute("aria-label", title);
+    button.innerHTML = `
+      <img src="${cover}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${category.cover}';">
+      <span class="category-card-shade"></span>
+      <span class="category-card-copy">
+        <small>${collection.count} ${lang === "en" ? "photos" : "张照片"}</small>
+        <strong>${title}</strong>
+      </span>
+    `;
+    button.onclick = () => renderPortfolioCollection(category.id, collection.group);
+    grid.appendChild(button);
+  });
+}
+
+function renderPortfolioCollection(categoryId, group) {
+  const category = portfolioCollectionsData.find(item => item.id === categoryId);
+  const collection = category?.collections.find(item => item.group === Number(group));
+  if (!category || !collection) return;
+
+  const gallery = document.getElementById("portfolioGallery");
+  const lang = getPortfolioLanguage();
+  const categoryName = getLocalizedText(category.name, lang);
+  const backLabel = lang === "en" ? `Back to ${categoryName}` : `返回${categoryName}`;
+  const collectionLabel = lang === "en" ? "Collection" : "合辑";
+  const title = `${categoryName} ${collectionLabel} ${collection.group}`;
+  if (!gallery) return;
+
+  gallery.dataset.activeCategory = categoryId;
+  gallery.dataset.activeCollection = String(collection.group);
+  gallery.innerHTML = `
+    <div class="portfolio-detail-header">
+      <button type="button" class="portfolio-back" aria-label="${backLabel}">${backLabel}</button>
+      <div>
+        <p class="section-kicker">${categoryName}</p>
+        <h3>${title}</h3>
+        <p>${lang === "en" ? `${collection.count} photos in this collection.` : `这一组合辑共 ${collection.count} 张照片。`}</p>
+      </div>
+    </div>
+    <div class="portfolio-work-grid"></div>
+  `;
+
+  gallery.querySelector(".portfolio-back").onclick = () => renderPortfolioGallery(category.id);
+
+  const grid = gallery.querySelector(".portfolio-work-grid");
+  for (let index = 1; index <= collection.count; index += 1) {
+    const image = getPortfolioImagePath(category, collection.group, index);
+    const imageLabel = `${category.code}${collection.group}.${index}`;
+    const article = document.createElement("article");
+    article.className = "portfolio-work-card portfolio-photo-card";
+    article.innerHTML = `
+      <img src="${image}" alt="${title} ${index}" loading="lazy" onerror="this.onerror=null;this.src='${category.cover}';">
+      <div>
+        <h4>${imageLabel}</h4>
+      </div>
+    `;
+    grid.appendChild(article);
+  }
+}
+
+function getPortfolioImagePath(category, group, index) {
+  return `assets/portfolio/${category.folder}/${category.code}${group}.${index}.jpg`;
+}
+
 window.addEventListener("languagechange", () => {
   const gallery = document.getElementById("portfolioGallery");
   const activeCategory = gallery?.dataset.activeCategory;
+  const activeCollection = gallery?.dataset.activeCollection;
 
-  if (activeCategory) {
+  if (activeCategory && activeCollection) {
+    renderPortfolioCollection(activeCategory, activeCollection);
+  } else if (activeCategory) {
     renderPortfolioGallery(activeCategory);
   } else {
     renderPortfolioCategories();

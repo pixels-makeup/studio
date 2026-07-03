@@ -392,6 +392,12 @@ a:focus-visible {
   background: var(--surface-warm);
 }
 
+.portfolio-photo-card img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 .portfolio-work-card div {
   padding: 16px;
 }
