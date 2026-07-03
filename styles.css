@@ -725,6 +725,57 @@ a:focus-visible {
   margin: 14px 0 0;
 }
 
+.policy-content {
+  margin-top: 18px;
+}
+
+.policy-copy {
+  display: none;
+}
+
+html[lang="zh-Hans"] .policy-copy[data-policy-lang="zh"],
+html[lang="en"] .policy-copy[data-policy-lang="en"] {
+  display: grid;
+  gap: 16px;
+}
+
+.policy-copy section {
+  padding: clamp(18px, 4vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.policy-copy h2 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+}
+
+.policy-copy p,
+.policy-copy li {
+  color: var(--muted);
+  line-height: 1.78;
+}
+
+.policy-copy p {
+  margin: 0 0 12px;
+}
+
+.policy-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.policy-copy ul,
+.policy-copy ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.policy-copy li + li {
+  margin-top: 8px;
+}
+
 .booking-page-shell {
   display: grid;
   gap: 18px;
