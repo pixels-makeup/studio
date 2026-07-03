@@ -698,9 +698,12 @@ const BOOKING_API_URL = "https://script.google.com/macros/s/AKfycbwr53AxuED3AVty
 
 const bookingSettings = {
   serviceDurationMinutes: 180,
-  slotIntervalMinutes: 60,
+  slotIntervalMinutes: 30,
   dayStartHour: 0,
   dayEndHour: 24,
+  latestStartMinutes: 23 * 60 + 30,
+  earlyShiftBeforeMinutes: 7 * 60 + 30,
+  lateShiftAfterMinutes: 22 * 60 + 30,
   timezone: "America/Los_Angeles",
   calendarEmail: "littlehamster516@gmail.com"
 };
@@ -847,6 +850,22 @@ function getBookingCopy(key) {
   return bookingCopy[lang][key] || bookingCopy.en[key] || key;
 }
 
+function parseTimeToMinutes(time) {
+  const [hours, minutes = 0] = String(time).split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+function requiresShiftSurcharge(time) {
+  const minutes = parseTimeToMinutes(time);
+  return minutes < bookingSettings.earlyShiftBeforeMinutes || minutes > bookingSettings.lateShiftAfterMinutes;
+}
+
+function getShiftSurchargeText() {
+  return getBookingLanguage() === "en"
+    ? "Early/late shift +$15/hr"
+    : "早/晚班 +$15/hr";
+}
+
 function renderBooking() {
   const lang = getBookingLanguage();
   const copy = bookingCopy[lang];
@@ -957,6 +976,10 @@ async function selectBookingDate(dateKey) {
 }
 
 async function fetchAvailability(dateKey) {
+  if (new URLSearchParams(window.location.search).get("bookingPreview") === "mock") {
+    return { mock: true, slots: buildMockSlots(dateKey) };
+  }
+
   if (!BOOKING_API_URL) {
     return { mock: true, slots: buildMockSlots(dateKey) };
   }
@@ -990,16 +1013,18 @@ function renderTimeSlots() {
   container.innerHTML = slots.map(slot => {
     const selected = slot.time === bookingState.selectedTime;
     const status = slot.available ? getBookingCopy("available") : getBookingCopy("booked");
+    const surcharge = requiresShiftSurcharge(slot.time);
     return `
       <button
         type="button"
-        class="time-slot ${selected ? "selected" : ""} ${slot.available ? "" : "booked"}"
+        class="time-slot ${selected ? "selected" : ""} ${slot.available ? "" : "booked"} ${surcharge ? "surcharge" : ""}"
         data-time="${slot.time}"
         ${slot.available ? "" : "disabled"}
         aria-pressed="${selected ? "true" : "false"}"
       >
         <strong>${formatDisplayTime(slot.time)}</strong>
         <span>${selected ? getBookingCopy("selected") : status}</span>
+        ${surcharge ? `<em>${getShiftSurchargeText()}</em>` : ""}
       </button>
     `;
   }).join("");
@@ -1027,9 +1052,12 @@ function updateBookingSummary() {
     return;
   }
 
-  summary.textContent = getBookingCopy("summary")
+  const summaryText = getBookingCopy("summary")
     .replace("{date}", formatDisplayDate(bookingState.selectedDate))
     .replace("{time}", formatDisplayTime(bookingState.selectedTime));
+  summary.textContent = requiresShiftSurcharge(bookingState.selectedTime)
+    ? `${summaryText} ${getShiftSurchargeText()}`
+    : summaryText;
   submit.disabled = false;
 }
 
@@ -1059,6 +1087,7 @@ async function submitBookingRequest(event) {
   payload.language = getBookingLanguage();
   payload.duration = bookingSettings.serviceDurationMinutes;
   payload.timezone = bookingSettings.timezone;
+  payload.shiftSurcharge = requiresShiftSurcharge(bookingState.selectedTime) ? getShiftSurchargeText() : "";
 
   submit.disabled = true;
   message.textContent = getBookingCopy("submitSending");
@@ -1147,7 +1176,7 @@ function buildMockSlots(dateKey) {
 
   for (
     let minutes = bookingSettings.dayStartHour * 60;
-    minutes <= bookingSettings.dayEndHour * 60 - bookingSettings.serviceDurationMinutes;
+    minutes <= bookingSettings.latestStartMinutes;
     minutes += bookingSettings.slotIntervalMinutes
   ) {
     const hour = Math.floor(minutes / 60);

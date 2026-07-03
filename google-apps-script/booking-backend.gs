@@ -5,9 +5,10 @@ const BOOKING_CONFIG = {
   siteAcceptUrl: "https://pixels-makeup.github.io/studio/",
   timezone: "America/Los_Angeles",
   serviceDurationMinutes: 180,
-  slotIntervalMinutes: 60,
+  slotIntervalMinutes: 30,
   dayStartHour: 0,
   dayEndHour: 24,
+  latestStartMinutes: 23 * 60 + 30,
   studioName: "Pixels Makeup Studio"
 };
 
@@ -43,7 +44,7 @@ function getAvailability(params) {
   dayStart.setHours(BOOKING_CONFIG.dayStartHour, 0, 0, 0);
 
   const dayEnd = new Date(date);
-  dayEnd.setHours(BOOKING_CONFIG.dayEndHour, 0, 0, 0);
+  dayEnd.setMinutes(BOOKING_CONFIG.latestStartMinutes + duration);
 
   const calendar = CalendarApp.getCalendarById(BOOKING_CONFIG.calendarId);
   if (!calendar) throw new Error("Calendar not found.");
@@ -64,7 +65,7 @@ function getAvailability(params) {
   const slots = [];
   for (
     let minutes = BOOKING_CONFIG.dayStartHour * 60;
-    minutes <= BOOKING_CONFIG.dayEndHour * 60 - duration;
+    minutes <= BOOKING_CONFIG.latestStartMinutes;
     minutes += BOOKING_CONFIG.slotIntervalMinutes
   ) {
     const slotStart = new Date(date);
@@ -97,7 +98,8 @@ function createPendingRequest(params) {
     event: required(params.event, "event"),
     notes: params.notes || "",
     duration: Number(params.duration || BOOKING_CONFIG.serviceDurationMinutes),
-    timezone: params.timezone || BOOKING_CONFIG.timezone
+    timezone: params.timezone || BOOKING_CONFIG.timezone,
+    shiftSurcharge: params.shiftSurcharge || ""
   };
 
   if (![request.wechat, request.rednote, request.phone, request.instagram].some(value => String(value || "").trim())) {
@@ -141,6 +143,7 @@ function acceptBookingRequest(params) {
       `RedNote: ${request.rednote}`,
       `Phone: ${request.phone}`,
       `Instagram: ${request.instagram}`,
+      `Early/Late shift: ${request.shiftSurcharge || "-"}`,
       `Event: ${request.event}`,
       `Location: ${request.location}`,
       `Notes: ${request.notes}`
@@ -165,6 +168,7 @@ function buildRequestEmail(request) {
     <p><strong>RedNote:</strong> ${request.rednote || "-"}</p>
     <p><strong>Phone:</strong> ${request.phone || "-"}</p>
     <p><strong>Instagram:</strong> ${request.instagram || "-"}</p>
+    <p><strong>Early/Late shift:</strong> ${request.shiftSurcharge || "-"}</p>
     <p><strong>Location:</strong> ${request.location}</p>
     <p><strong>Event:</strong> ${request.event}</p>
     <p><strong>Notes:</strong> ${request.notes || "-"}</p>

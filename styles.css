@@ -980,17 +980,18 @@ html[lang="en"] .policy-copy[data-policy-lang="en"] {
 
 .time-slots {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  gap: 8px;
 }
 
 .time-slot {
   display: grid;
-  gap: 2px;
-  min-height: 66px;
-  padding: 12px;
+  align-content: center;
+  gap: 1px;
+  min-height: 48px;
+  padding: 8px 10px;
   border: 1px solid rgba(127, 139, 118, 0.28);
-  border-radius: 16px;
+  border-radius: 13px;
   background: #f5fbf4;
   color: var(--ink);
   box-shadow: none;
@@ -998,15 +999,30 @@ html[lang="en"] .policy-copy[data-policy-lang="en"] {
 }
 
 .time-slot strong,
-.time-slot span {
+.time-slot span,
+.time-slot em {
   display: block;
+}
+
+.time-slot strong {
+  font-size: 0.95rem;
+  line-height: 1.05;
 }
 
 .time-slot span {
   color: var(--sage);
-  font-size: 0.78rem;
+  font-size: 0.66rem;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.time-slot em {
+  margin-top: 2px;
+  color: var(--rose-deep);
+  font-size: 0.6rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .time-slot:not(:disabled):hover,
@@ -1016,7 +1032,9 @@ html[lang="en"] .policy-copy[data-policy-lang="en"] {
 }
 
 .time-slot:not(:disabled):hover span,
-.time-slot.selected span {
+.time-slot.selected span,
+.time-slot:not(:disabled):hover em,
+.time-slot.selected em {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -1316,10 +1334,6 @@ html[lang="en"] .policy-copy[data-policy-lang="en"] {
   .calendar-day {
     min-height: 46px;
     border-radius: 13px;
-  }
-
-  .time-slots {
-    grid-template-columns: 1fr;
   }
 
   .before-after {
