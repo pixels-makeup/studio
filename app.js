@@ -110,6 +110,7 @@ const portfolioData = [
   }
 ];
 
+// Portfolio collections are grouped by filename prefix, using .1 as each collection cover.
 const portfolioCollectionsData = [
   {
     id: "wedding",
