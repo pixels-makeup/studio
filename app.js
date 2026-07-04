@@ -121,7 +121,10 @@ const portfolioCollectionsData = [
       zh: "新娘妆、婚礼跟妆与重要仪式造型。",
       en: "Bridal makeup, wedding day touch-ups, and polished looks for important ceremonies."
     },
-    collections: [{ group: 1, count: 5 }]
+    collections: [
+      { group: 1, count: 5 },
+      { group: 2, count: 4 }
+    ]
   },
   {
     id: "graduation",
@@ -133,7 +136,13 @@ const portfolioCollectionsData = [
       zh: "毕业照、典礼与校园拍摄妆造。",
       en: "Makeup and styling for graduation portraits, ceremonies, and campus photo sessions."
     },
-    collections: [{ group: 1, count: 2 }]
+    collections: [
+      { group: 1, count: 2 },
+      { group: 2, count: 3 },
+      { group: 3, count: 4 },
+      { group: 4, count: 3 },
+      { group: 5, count: 11 }
+    ]
   },
   {
     id: "photoshoot",
@@ -147,10 +156,13 @@ const portfolioCollectionsData = [
     },
     collections: [
       { group: 1, count: 4 },
-      { group: 2, count: 3 },
+      { group: 2, count: 5 },
       { group: 3, count: 1 },
       { group: 4, count: 3 },
-      { group: 5, count: 5 }
+      { group: 5, count: 7 },
+      { group: 6, count: 3 },
+      { group: 7, count: 5 },
+      { group: 8, count: 3 }
     ]
   },
   {
@@ -167,7 +179,9 @@ const portfolioCollectionsData = [
       { group: 1, count: 2 },
       { group: 2, count: 6 },
       { group: 3, count: 4 },
-      { group: 4, count: 3 }
+      { group: 4, count: 3 },
+      { group: 5, count: 3 },
+      { group: 6, count: 2 }
     ]
   }
 ];
